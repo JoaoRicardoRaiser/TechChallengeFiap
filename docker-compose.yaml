@@ -1,0 +1,19 @@
+version: "3.4"
+name: tech_challenge
+
+services:
+  postgres:
+    image: postgres:16.4-alpine3.20
+    container_name: postgres_tech_challenge
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 5432:5432 
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    networks:
+      - tech_challenge
+
+networks:
+  tech_challenge:
+    driver: bridge
