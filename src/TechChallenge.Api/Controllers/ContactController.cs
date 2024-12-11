@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using TechChallenge.Api.Dtos;
 using TechChallenge.Application.Dtos;
 using TechChallenge.Application.Interfaces;
-using TechChallenge.Domain.Entities;
 
 namespace TechChallenge.Api.Controllers;
 
@@ -27,10 +25,28 @@ public class ContactController(IContactService contactService) : Controller
         {
             Name = dto.Name!,
             Email = dto.Email!,
-            PhoneNumber = new() { Number = dto.PhoneNumber! }
+            Phone = new() { Number = dto.PhoneNumber! }
         };
 
         await contactService.Create(createContactDto);
+        return Created();
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> Put([FromQuery] Guid contactId, [FromBody] PutContactDto dto)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        var updateContactDto = new UpdateContactDto
+        {
+            ContactId = contactId,
+            Email = dto.Email!,
+            Phone = new() { Number = dto.PhoneNumber! }
+        };
+
+        await contactService.Update(updateContactDto);
+
         return Accepted();
     }
 }

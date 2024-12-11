@@ -1,10 +1,8 @@
 ﻿namespace TechChallenge.Application.Dtos;
 
-public record CreateContactDto
+public record UpdateContactDto
 {
-    public required string Name { get; set; }
-
+    public Guid ContactId { get; set; }
     public required string Email { get; set; }
-
     public PhoneDto Phone { get; set; } = default!;
 }
