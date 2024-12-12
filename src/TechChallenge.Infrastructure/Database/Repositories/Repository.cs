@@ -31,10 +31,9 @@ public class Repository<TEntity>(DbContext dbContext) : IRepository<TEntity> whe
 
     public void Delete(TEntity entity)
         => _dbSet.Remove(entity);
-
+    
     public Task SaveChangesAsync()
         => dbContext.SaveChangesAsync();
-
 
     private static IQueryable IncludeProperties(ref IQueryable<TEntity> query, string[]? includeProperties)
     {
@@ -46,6 +45,4 @@ public class Repository<TEntity>(DbContext dbContext) : IRepository<TEntity> whe
 
         return query;
     }
-
-    
 }

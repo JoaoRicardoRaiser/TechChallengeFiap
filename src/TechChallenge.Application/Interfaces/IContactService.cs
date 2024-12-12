@@ -8,4 +8,5 @@ public interface IContactService
     Task<IEnumerable<Contact>> GetAsync(int? phoneAreaCode);
     Task Create(CreateContactDto dto);
     Task Update(UpdateContactDto dto);
+    Task Delete(Guid contactId);
 }

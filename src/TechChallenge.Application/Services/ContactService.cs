@@ -21,6 +21,7 @@ public class ContactService(
 
     public async Task Create(CreateContactDto dto) //TODO: adicionar valor na base de dados e cache de contatos.
     {
+        await ValidateContactAlredySaved(dto);
         ValidatePhoneAreaCode(dto.Phone);
 
         var contact = mapper.Map<Contact>(dto);
@@ -34,18 +35,37 @@ public class ContactService(
     {
         ValidatePhoneAreaCode(dto.Phone);
 
-        var contactSaved = await contactRepository.SingleOrDefaultAsync(x => x.Id == dto.ContactId) 
-            ?? throw new BusinessException($"Contact not exists. Id: {dto.ContactId}");
+        var contactSaved = await GetContactSavedById(dto.ContactId);
 
         mapper.Map(dto, contactSaved!);
 
         await contactRepository.SaveChangesAsync();
     }
 
+    public async Task Delete(Guid contactId) //TODO: remover também do cache.
+    {
+        var contactSaved = await GetContactSavedById(contactId);
+
+        contactRepository.Delete(contactSaved);
+
+        await contactRepository.SaveChangesAsync();
+    }
+
+    private async Task ValidateContactAlredySaved(CreateContactDto dto)
+    {
+        var contactSaved = await contactRepository.SingleOrDefaultAsync(c => c.Name == dto.Name);
+        if (contactSaved is not null)
+            throw new BusinessException($"Contact with this name alredy exists. Name: {dto.Name}");
+    }
+
     private void ValidatePhoneAreaCode(PhoneDto dto)
     {
-        var validPhoneAreaCode = phoneAreaCache.ExistsAsync(dto.AreaCode);
-        if (!validPhoneAreaCode)
-            throw new BusinessException($"Phone area code with code: {dto.AreaCode} not exists!");
+        var phoneAreaExists = phoneAreaCache.ExistsAsync(dto.AreaCode);
+        if (!phoneAreaExists)
+            throw new BusinessException($"Phone area code not exists. Code: {dto.AreaCode}");
     }
+
+    private async Task<Contact> GetContactSavedById(Guid contactId)
+        => await contactRepository.SingleOrDefaultAsync(c => c.Id == contactId) ?? throw new BusinessException($"Contact not exists. Id: {contactId}");
+
 }
