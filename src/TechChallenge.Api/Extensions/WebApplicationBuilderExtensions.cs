@@ -9,10 +9,15 @@ public static class WebApplicationBuilderExtensions
         builder.Configuration
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddEnvironmentVariables()
-            .AddJsonFile("appsettings.Development.json")
-            .AddJsonFile("appsettings.json")
+            .AddJsonFile(GetAppsettingsFileName())
             .AddUserSecrets(Assembly.GetExecutingAssembly());
 
         return builder;
+    }
+
+    public static string GetAppsettingsFileName()
+    {
+        var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? default;
+        return environment == default ? "appsettings.json" : string.Format("appsettings.{0}.json", environment);
     }
 }

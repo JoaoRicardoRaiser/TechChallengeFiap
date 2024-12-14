@@ -6,13 +6,16 @@ namespace TechChallenge.Infrastructure.Cache;
 
 public class PhoneAreaCache(IMemoryCache memoryCache) : IPhoneAreaCache
 {
-    protected readonly string _keyPrefix = $"{nameof(PhoneArea)}_";
+    private readonly string _keyPrefix = $"{nameof(PhoneArea)}_";
+
+    public PhoneArea GetByCode(int code)
+        => memoryCache.Get<PhoneArea>(GetFormattedKey(code))!;
 
     public void Add(PhoneArea phoneArea)
-        => memoryCache.Set(GetFormattedKey(phoneArea.Code), phoneArea.Code);
+        => memoryCache.Set(GetFormattedKey(phoneArea.Code), phoneArea);
 
-    public bool ExistsAsync(int phoneAreaCode)
-        => memoryCache.TryGetValue(GetFormattedKey(phoneAreaCode), out _);
+    public bool Exists(int code)
+        => memoryCache.TryGetValue(GetFormattedKey(code), out _);
 
     private string GetFormattedKey(int phoneAreaCode)
         => _keyPrefix + phoneAreaCode;
