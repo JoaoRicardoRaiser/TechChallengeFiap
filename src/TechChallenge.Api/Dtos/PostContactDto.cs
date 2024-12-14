@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TechChallenge.Api.Validation;
 
 namespace TechChallenge.Api.Dtos;
 
@@ -13,7 +14,7 @@ public record PostContactDto
     public string? Email { get; set; }
 
     [Required]
-    [Phone]
+    [PhoneValidation]
     public string? PhoneNumber { get; set; }
 
     public string PhoneAreaCode => PhoneNumber![..2];

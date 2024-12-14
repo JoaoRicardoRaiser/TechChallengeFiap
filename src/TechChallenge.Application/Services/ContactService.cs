@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using TechChallenge.Application.Dtos;
 using TechChallenge.Application.Interfaces;
 using TechChallenge.Domain.Entities;
@@ -8,47 +9,66 @@ using TechChallenge.Domain.Interfaces.Repositories;
 namespace TechChallenge.Application.Services;
 
 public class ContactService(
-    IRepository<Contact> contactRepository, 
+    ILogger<ContactService> logger,
+    IRepository<Contact> contactRepository,
+    IContactCache contactCache,
     IPhoneAreaCache phoneAreaCache,
     IMapper mapper) : IContactService
 {
-    public async Task<IEnumerable<Contact>> GetAsync(int? phoneAreaCode) // TODO: fazer lógica para trazer do cache de contato ou database.
+    public async Task<IEnumerable<Contact>> GetAsync(int? phoneAreaCode)
     {
-        return await contactRepository.GetAsync(
-            c => phoneAreaCode == null || c.PhoneAreaCode == phoneAreaCode,
-            [nameof(Contact.PhoneArea)]);
+        if (contactCache.ContactsOnCache())
+        {
+            logger.LogInformation("obtained contacts from cache");
+            return contactCache.GetAll();
+        }
+        else
+        {
+            var contactsSaved = await contactRepository.GetAsync(
+                c => phoneAreaCode == null || c.PhoneAreaCode == phoneAreaCode,
+                [nameof(Contact.PhoneArea)]
+            );
+
+            contactCache.AddRange(contactsSaved);
+            return contactsSaved;
+        }
     }
 
-    public async Task Create(CreateContactDto dto) //TODO: adicionar valor na base de dados e cache de contatos.
+    public async Task Create(CreateContactDto dto)
     {
         await ValidateContactAlredySaved(dto);
-        ValidatePhoneAreaCode(dto.Phone);
 
         var contact = mapper.Map<Contact>(dto);
 
         await contactRepository.AddAsync(contact);
 
         await contactRepository.SaveChangesAsync();
+
+        contact.PhoneArea = phoneAreaCache.GetByCode(dto.Phone.AreaCode);
+        contactCache.Add(contact);
     }
 
-    public async Task Update(UpdateContactDto dto) //TODO: sincronizar com o cache de contato.
+    public async Task Update(UpdateContactDto dto)
     {
-        ValidatePhoneAreaCode(dto.Phone);
-
         var contactSaved = await GetContactSavedById(dto.ContactId);
 
         mapper.Map(dto, contactSaved!);
 
         await contactRepository.SaveChangesAsync();
+
+        contactSaved.PhoneArea = phoneAreaCache.GetByCode(contactSaved.PhoneAreaCode);
+        contactCache.Update(contactSaved);
     }
 
-    public async Task Delete(Guid contactId) //TODO: remover também do cache.
+    public async Task Delete(Guid contactId)
     {
         var contactSaved = await GetContactSavedById(contactId);
 
         contactRepository.Delete(contactSaved);
 
         await contactRepository.SaveChangesAsync();
+
+        contactCache.Delete(contactSaved);
     }
 
     private async Task ValidateContactAlredySaved(CreateContactDto dto)
@@ -58,14 +78,6 @@ public class ContactService(
             throw new BusinessException($"Contact with this name alredy exists. Name: {dto.Name}");
     }
 
-    private void ValidatePhoneAreaCode(PhoneDto dto)
-    {
-        var phoneAreaExists = phoneAreaCache.ExistsAsync(dto.AreaCode);
-        if (!phoneAreaExists)
-            throw new BusinessException($"Phone area code not exists. Code: {dto.AreaCode}");
-    }
-
     private async Task<Contact> GetContactSavedById(Guid contactId)
         => await contactRepository.SingleOrDefaultAsync(c => c.Id == contactId) ?? throw new BusinessException($"Contact not exists. Id: {contactId}");
-
 }
