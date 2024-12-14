@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TechChallenge.Domain.Exceptions;
 
 namespace TechChallenge.Api.Middlewares;
 // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
@@ -18,8 +17,8 @@ public class ExceptionHandlingMiddleware(RequestDelegate next, ILogger<Exception
             var problemDetails = new ProblemDetails
             {
                 Title = "Business Error",
-                Instance = httpContext.Request.Path,
-                Detail = ex.Message
+                Instance = $"{httpContext.Request.Method} {httpContext.Request.Path}",
+                Detail = ex.Message,
             };
 
             httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;

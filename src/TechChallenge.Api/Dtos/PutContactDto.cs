@@ -2,12 +2,8 @@
 
 namespace TechChallenge.Api.Dtos;
 
-public record PostContactDto
+public record PutContactDto
 {
-    [Required]
-    [Length(3, int.MaxValue)]
-    public string? Name { get; set; }
-
     [Required]
     [EmailAddress]
     public string? Email { get; set; }

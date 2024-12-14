@@ -47,7 +47,7 @@ namespace TechChallenge.Infrastructure.Database.Migrations
 
                     b.HasIndex("PhoneAreaCode");
 
-                    b.ToTable("Contact");
+                    b.ToTable("Contact", (string)null);
                 });
 
             modelBuilder.Entity("TechChallenge.Domain.Entities.PhoneArea", b =>
@@ -64,7 +64,7 @@ namespace TechChallenge.Infrastructure.Database.Migrations
 
                     b.HasKey("Code");
 
-                    b.ToTable("PhoneArea");
+                    b.ToTable("PhoneArea", (string)null);
                 });
 
             modelBuilder.Entity("TechChallenge.Domain.Entities.Contact", b =>
