@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TechChallenge.Infrastructure.Database;
+
+[ExcludeFromCodeCoverage]
 public class TechChallengeDbContext(DbContextOptions dbContextOptions) : DbContext(dbContextOptions)
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

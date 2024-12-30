@@ -34,9 +34,10 @@ public class ContactService(
         }
     }
 
-    public async Task Create(CreateContactDto dto)
+    public async Task CreateAsync(CreateContactDto dto)
     {
-        await ValidateContactAlredySaved(dto);
+        ValidatePhoneAreaCodeExists(dto.Phone);
+        await ValidateContactAlredySavedAsync(dto);
 
         var contact = mapper.Map<Contact>(dto);
 
@@ -44,25 +45,26 @@ public class ContactService(
 
         await contactRepository.SaveChangesAsync();
 
-        contact.PhoneArea = phoneAreaCache.GetByCode(dto.Phone.AreaCode);
+        contact.PhoneArea = GetPhoneArea(dto.Phone);
         contactCache.Add(contact);
     }
 
-    public async Task Update(UpdateContactDto dto)
+    public async Task UpdateAsync(UpdateContactDto dto)
     {
-        var contactSaved = await GetContactSavedById(dto.ContactId);
+        ValidatePhoneAreaCodeExists(dto.Phone);
+        var contactSaved = await GetContactSavedByIdAsync(dto.ContactId);
 
         mapper.Map(dto, contactSaved!);
 
         await contactRepository.SaveChangesAsync();
 
-        contactSaved.PhoneArea = phoneAreaCache.GetByCode(contactSaved.PhoneAreaCode);
+        contactSaved.PhoneArea = GetPhoneArea(dto.Phone);
         contactCache.Update(contactSaved);
     }
 
-    public async Task Delete(Guid contactId)
+    public async Task DeleteAsync(Guid contactId)
     {
-        var contactSaved = await GetContactSavedById(contactId);
+        var contactSaved = await GetContactSavedByIdAsync(contactId);
 
         contactRepository.Delete(contactSaved);
 
@@ -71,13 +73,24 @@ public class ContactService(
         contactCache.Delete(contactSaved);
     }
 
-    private async Task ValidateContactAlredySaved(CreateContactDto dto)
+    private async Task ValidateContactAlredySavedAsync(CreateContactDto dto)
     {
         var contactSaved = await contactRepository.SingleOrDefaultAsync(c => c.Name == dto.Name);
         if (contactSaved is not null)
             throw new BusinessException($"Contact with this name alredy exists. Name: {dto.Name}");
     }
 
-    private async Task<Contact> GetContactSavedById(Guid contactId)
-        => await contactRepository.SingleOrDefaultAsync(c => c.Id == contactId) ?? throw new BusinessException($"Contact not exists. Id: {contactId}");
+    private void ValidatePhoneAreaCodeExists(PhoneDto phoneDto)
+    {
+        if (!phoneAreaCache.Exists(phoneDto.AreaCode))
+            throw new BusinessException($"Phone area code not exists. Code: {phoneDto.AreaCode}");
+    }
+
+    private PhoneArea GetPhoneArea(PhoneDto phoneDto)
+        => phoneAreaCache.GetByCode(phoneDto.AreaCode);
+
+
+    private async Task<Contact> GetContactSavedByIdAsync(Guid contactId)
+        => await contactRepository.SingleOrDefaultAsync(c => c.Id == contactId) 
+        ?? throw new BusinessException($"Contact not exists. Id: {contactId}");
 }
