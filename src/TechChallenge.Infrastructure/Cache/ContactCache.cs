@@ -1,11 +1,12 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
+using System.Diagnostics.CodeAnalysis;
 using TechChallenge.Application.Interfaces;
 using TechChallenge.Domain.Entities;
-using TechChallenge.Domain.Interfaces.Repositories;
 
 namespace TechChallenge.Infrastructure.Cache;
 
-public class ContactCache(IMemoryCache memoryCache, IRepository<Contact> contactRepository) : IContactCache
+[ExcludeFromCodeCoverage]
+public class ContactCache(IMemoryCache memoryCache) : IContactCache
 {
     private const string _contactsKey = "contacts";
 

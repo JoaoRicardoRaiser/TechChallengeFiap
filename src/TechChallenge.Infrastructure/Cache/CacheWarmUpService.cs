@@ -1,10 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
+using System.Diagnostics.CodeAnalysis;
 using TechChallenge.Application.Interfaces;
 using TechChallenge.Domain.Entities;
 using TechChallenge.Domain.Interfaces.Repositories;
 
 namespace TechChallenge.Infrastructure.Cache;
 
+[ExcludeFromCodeCoverage]
 public class CacheWarmUpService(
     ILogger<CacheWarmUpService> logger, 
     IPhoneAreaCache phoneAreaCache, 

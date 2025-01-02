@@ -1,7 +1,9 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 
 namespace TechChallenge.Api.Extensions;
 
+[ExcludeFromCodeCoverage]
 public static class WebApplicationBuilderExtensions
 {
     public static WebApplicationBuilder AddConfiguration(this WebApplicationBuilder builder)
