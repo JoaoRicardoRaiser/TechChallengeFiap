@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using TechChallenge.Api.Dtos;
 using TechChallenge.Application.Dtos;
 using TechChallenge.Application.Interfaces;
-using TechChallenge.Domain.Entities;
 
 namespace TechChallenge.Api.Controllers;
 
-[Route("contact")]
-public class ContactController(IContactService contactService) : Controller
+[ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest)]
+[Route("contacts")]
+public class ContactController(IContactService contactService, IMapper mapper) : Controller
 {
     [HttpGet]
     public async Task<IActionResult> Get([FromQuery] int? phoneAreaNumber)
@@ -20,17 +20,35 @@ public class ContactController(IContactService contactService) : Controller
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] PostContactDto dto)
     {
-        if(!ModelState.IsValid)
+        if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        var createContactDto = new CreateContactDto
-        {
-            Name = dto.Name!,
-            Email = dto.Email!,
-            PhoneNumber = new() { Number = dto.PhoneNumber! }
-        };
+        var createContactDto = mapper.Map<CreateContactDto>(dto);
 
-        await contactService.Create(createContactDto);
+        await contactService.CreateAsync(createContactDto);
+
         return Accepted();
+    }
+
+    [HttpPut("{contactId}")]
+    public async Task<IActionResult> Put(Guid contactId, [FromBody] PutContactDto dto)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        var updateContactDto = mapper.Map<UpdateContactDto>(dto);
+        updateContactDto.ContactId = contactId;
+
+        await contactService.UpdateAsync(updateContactDto);
+
+        return Accepted();
+    }
+
+    [HttpDelete("{contactId}")]
+    public async Task<IActionResult> Delete(Guid contactId)
+    {
+        await contactService.DeleteAsync(contactId);
+
+        return NoContent();
     }
 }

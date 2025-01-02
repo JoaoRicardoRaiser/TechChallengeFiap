@@ -6,5 +6,7 @@ namespace TechChallenge.Application.Interfaces;
 public interface IContactService
 {
     Task<IEnumerable<Contact>> GetAsync(int? phoneAreaCode);
-    Task Create(CreateContactDto dto);
+    Task CreateAsync(CreateContactDto dto);
+    Task UpdateAsync(UpdateContactDto dto);
+    Task DeleteAsync(Guid contactId);
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics.CodeAnalysis;
 using TechChallenge.Application.Interfaces;
 using TechChallenge.Domain.Interfaces.Repositories;
 using TechChallenge.Infrastructure.Cache;
@@ -9,6 +10,7 @@ using TechChallenge.Infrastructure.Database.Repositories;
 
 namespace TechChallenge.Infrastructure.Extensions;
 
+[ExcludeFromCodeCoverage]
 public static class IServiceCollectionExtensions
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
@@ -39,6 +41,7 @@ public static class IServiceCollectionExtensions
         services.AddMemoryCache();
         
         services.AddScoped<IPhoneAreaCache, PhoneAreaCache>();
+        services.AddScoped<IContactCache, ContactCache>();
 
         services.AddScoped<ICacheWarmUpService, CacheWarmUpService>();
     }

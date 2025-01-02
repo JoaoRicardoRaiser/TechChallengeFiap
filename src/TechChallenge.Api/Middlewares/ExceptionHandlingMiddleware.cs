@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TechChallenge.Domain.Exceptions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TechChallenge.Api.Middlewares;
 // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
+[ExcludeFromCodeCoverage]
 public class ExceptionHandlingMiddleware(RequestDelegate next, ILogger<ExceptionHandlingMiddleware> logger)
 {
     public async Task Invoke(HttpContext httpContext)
@@ -18,8 +19,8 @@ public class ExceptionHandlingMiddleware(RequestDelegate next, ILogger<Exception
             var problemDetails = new ProblemDetails
             {
                 Title = "Business Error",
-                Instance = httpContext.Request.Path,
-                Detail = ex.Message
+                Instance = $"{httpContext.Request.Method} {httpContext.Request.Path}",
+                Detail = ex.Message,
             };
 
             httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
@@ -30,6 +31,7 @@ public class ExceptionHandlingMiddleware(RequestDelegate next, ILogger<Exception
 }
 
 // Extension method used to add the middleware to the HTTP request pipeline.
+[ExcludeFromCodeCoverage]
 public static class GlobalResponseMiddlewareExtensions
 {
     public static IApplicationBuilder UseExceptionHandlingMiddleware(this IApplicationBuilder builder)

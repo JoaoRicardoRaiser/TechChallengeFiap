@@ -3,12 +3,8 @@ using TechChallenge.Api.Validation;
 
 namespace TechChallenge.Api.Dtos;
 
-public record PostContactDto
+public record PutContactDto
 {
-    [Required]
-    [Length(3, int.MaxValue, ErrorMessage = "The field Name must be a string with a minimum length of '3'.")]
-    public string? Name { get; set; }
-
     [Required]
     [EmailAddress]
     public string? Email { get; set; }
