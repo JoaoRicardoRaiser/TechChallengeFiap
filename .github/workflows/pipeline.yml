@@ -27,10 +27,10 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a step 1
-        run: echo Teste Raiser!
+          run: echo Teste Raiser!
 
       - name: Run a step 2
-        run: echo running step 2!
+          run: echo running step 2!
 
-        - name: Run a step 3
-        run: echo running step 3!
+      - name: Run a step 3
+          run: echo running step 3!
