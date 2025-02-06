@@ -14,7 +14,8 @@ stages:
       - job: 'Build'
         displayName: 'Build Job'
     pool:
-      vm-image: ubuntu-latest
+      group: Default
+      vm-image: AgentSelfHosted
     
       steps:
       - task: UseDotNet@2
