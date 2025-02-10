@@ -12,5 +12,5 @@ public record PutContactDto
     [Phone]
     public string? PhoneNumber { get; set; }
 
-    public string PhoneAreaCode => PhoneNumber![..2];
+    protected string PhoneAreaCode => PhoneNumber![..2];
 }
