@@ -25,9 +25,9 @@ public class ContactController(IContactService contactService, IMapper mapper) :
 
         var createContactDto = mapper.Map<CreateContactDto>(dto);
 
-        await contactService.Create(createContactDto);
+        await contactService.CreateAsync(createContactDto);
 
-        return Created();
+        return Accepted();
     }
 
     [HttpPut("{contactId}")]
@@ -39,7 +39,7 @@ public class ContactController(IContactService contactService, IMapper mapper) :
         var updateContactDto = mapper.Map<UpdateContactDto>(dto);
         updateContactDto.ContactId = contactId;
 
-        await contactService.Update(updateContactDto);
+        await contactService.UpdateAsync(updateContactDto);
 
         return Accepted();
     }
@@ -47,7 +47,7 @@ public class ContactController(IContactService contactService, IMapper mapper) :
     [HttpDelete("{contactId}")]
     public async Task<IActionResult> Delete(Guid contactId)
     {
-        await contactService.Delete(contactId);
+        await contactService.DeleteAsync(contactId);
 
         return NoContent();
     }

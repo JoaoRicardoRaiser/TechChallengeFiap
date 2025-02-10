@@ -2,6 +2,7 @@
 using TechChallenge.Domain.Entities;
 
 namespace TechChallenge.Api.IntegrationTest.Fakes;
+
 public static class ContactFake
 {
 

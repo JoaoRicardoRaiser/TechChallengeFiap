@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using TechChallenge.Domain.Entities;
 using TechChallenge.Domain.Interfaces.Repositories;
 
 namespace TechChallenge.Infrastructure.Database.Repositories;
 
+[ExcludeFromCodeCoverage]
 public class Repository<TEntity>(DbContext dbContext) : IRepository<TEntity> where TEntity : EntityBase
 {
     protected readonly DbSet<TEntity> _dbSet = dbContext.Set<TEntity>();

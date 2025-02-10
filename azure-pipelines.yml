@@ -1,0 +1,54 @@
+pr:
+  branches:
+    include:
+      - 'develop'
+      - 'main'
+variables:
+  buildConfiguration: 'Release'
+  releaseBranchName: 'release'
+  dotnetSdkVersion: '8.x'
+
+stages:
+  - stage: 'Build'
+    displayName: 'Build'
+    jobs:
+      - job: 'Build'
+        displayName: 'Build Job'
+    pool:
+      vmImage: 'ubuntu-latest'
+    
+      steps:
+      - task: UseDotNet@2
+        displayName: 'Use .NET SDK $(dotnetSdkVersion)'
+        inputs:
+          packageType: sdk
+          version: '$(dotnetSdkVersion)'
+      
+      - task: DotNetCoreCLI@2
+        displayName: 'Restore' 
+        inputs:
+          command: 'restore'
+          projects: '**/*.csproj'
+      
+      - task: DotNetCoreCLI@2
+        displayName: 'Build'
+        inputs:
+          command: build
+          arguments: '--no-restore --configuration $(buildConfiguration)'
+
+      - task: DotNetCoreCLI@2
+        displayName: "Run Tests"
+        inputs:
+          command: 'test'
+          projects: '**/*.csproj'
+      
+      - task: DotNetCoreCLI@2
+        displayName: "Publish"
+        inputs:
+          command: 'publish'
+          projects: '**/*.csproj'
+          publishWebProjects: false
+          arguments: --no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)
+      
+      - publish: '$(Build.ArtifactStagingDirectory)'
+        artifact: drop

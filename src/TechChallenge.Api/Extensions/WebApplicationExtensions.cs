@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 using TechChallenge.Application.Interfaces;
 using TechChallenge.Infrastructure.Database;
 
 namespace TechChallenge.Api.Extensions;
 
+[ExcludeFromCodeCoverage]
 public static class WebApplicationExtensions
 {
     public static void ApplyMigrations(this WebApplication webApplication)

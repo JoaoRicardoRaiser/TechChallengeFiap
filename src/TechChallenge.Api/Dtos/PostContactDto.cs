@@ -6,7 +6,7 @@ namespace TechChallenge.Api.Dtos;
 public record PostContactDto
 {
     [Required]
-    [Length(3, int.MaxValue)]
+    [Length(3, int.MaxValue, ErrorMessage = "The field Name must be a string with a minimum length of '3'.")]
     public string? Name { get; set; }
 
     [Required]
@@ -17,5 +17,5 @@ public record PostContactDto
     [PhoneValidation]
     public string? PhoneNumber { get; set; }
 
-    protected string PhoneAreaCode => PhoneNumber![..2];
+    public string PhoneAreaCode => PhoneNumber![..2];
 }
