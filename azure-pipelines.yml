@@ -42,14 +42,14 @@ stages:
               command: 'test'
               projects: '**/*.csproj'
 
-          # - task: DotNetCoreCLI@2
-          #   displayName: "Publish"
-          #   inputs:
-          #     command: 'publish'
-          #     projects: '**/*.csproj'
-          #     publishWebProjects: false
-          #     arguments: --no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)
-          #     zipAfterPublish: true
+          - task: DotNetCoreCLI@2
+            displayName: "Publish"
+            inputs:
+              command: 'publish'
+              projects: '**/*.csproj'
+              publishWebProjects: false
+              arguments: --no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)
+              zipAfterPublish: true
 
-          # - publish: '$(Build.ArtifactStagingDirectory)'
-          #   artifact: drop
+          - publish: '$(Build.ArtifactStagingDirectory)'
+            artifact: drop
