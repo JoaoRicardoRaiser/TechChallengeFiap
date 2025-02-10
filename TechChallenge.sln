@@ -21,15 +21,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechChallenge.Infrastructur
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechChallenge.Domain", "src\TechChallenge.Domain\TechChallenge.Domain.csproj", "{557A5FB9-F363-44E3-BE98-CC25ADEAE90F}"
 EndProject
-<<<<<<< Updated upstream
-=======
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechChallenge.Api.UnitTest", "tests\TechChallenge.Api.UnitTest\TechChallenge.Api.UnitTest.csproj", "{E36DE9E3-86E0-47D8-B9EE-CDE4F55954B8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechChallenge.Application.UnitTest", "tests\TechChallenge.Application.UnitTest\TechChallenge.Application.UnitTest.csproj", "{48375889-FF42-4FD3-9088-8383AF1EAB0A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechChallenge.Api.IntegrationTest", "tests\TechChallenge.Api.IntegrationTest\TechChallenge.Api.IntegrationTest.csproj", "{99E3EFF1-B523-4D16-A339-C8B010A7A82D}"
 EndProject
->>>>>>> Stashed changes
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,8 +49,6 @@ Global
 		{557A5FB9-F363-44E3-BE98-CC25ADEAE90F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{557A5FB9-F363-44E3-BE98-CC25ADEAE90F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{557A5FB9-F363-44E3-BE98-CC25ADEAE90F}.Release|Any CPU.Build.0 = Release|Any CPU
-<<<<<<< Updated upstream
-=======
 		{E36DE9E3-86E0-47D8-B9EE-CDE4F55954B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E36DE9E3-86E0-47D8-B9EE-CDE4F55954B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E36DE9E3-86E0-47D8-B9EE-CDE4F55954B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -66,7 +61,6 @@ Global
 		{99E3EFF1-B523-4D16-A339-C8B010A7A82D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99E3EFF1-B523-4D16-A339-C8B010A7A82D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99E3EFF1-B523-4D16-A339-C8B010A7A82D}.Release|Any CPU.Build.0 = Release|Any CPU
->>>>>>> Stashed changes
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,12 +70,9 @@ Global
 		{7180899D-4FCF-43CB-A91A-5F7D1A12F397} = {32D1F672-1233-4732-BEA4-D705936C4717}
 		{4C9B245D-1E0E-4FFB-9340-2AFA9D3A9E4C} = {32D1F672-1233-4732-BEA4-D705936C4717}
 		{557A5FB9-F363-44E3-BE98-CC25ADEAE90F} = {32D1F672-1233-4732-BEA4-D705936C4717}
-<<<<<<< Updated upstream
-=======
 		{E36DE9E3-86E0-47D8-B9EE-CDE4F55954B8} = {17E5FBCF-A921-4DEC-8037-8C0BA693BD41}
 		{48375889-FF42-4FD3-9088-8383AF1EAB0A} = {17E5FBCF-A921-4DEC-8037-8C0BA693BD41}
 		{99E3EFF1-B523-4D16-A339-C8B010A7A82D} = {17E5FBCF-A921-4DEC-8037-8C0BA693BD41}
->>>>>>> Stashed changes
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5C76FF30-12C1-4B51-89F6-8F1180C69947}
