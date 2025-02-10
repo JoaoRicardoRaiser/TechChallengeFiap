@@ -15,8 +15,8 @@ stages:
       - job: 'Build'
         displayName: 'Build Job'
     pool:
-      vmImage: 'self-hosted'
-    
+      name: Default
+     
       steps:
       - task: UseDotNet@2
         displayName: 'Use .NET SDK $(dotnetSdkVersion)'
