@@ -46,6 +46,7 @@ stages:
             displayName: 'Publish .Net'
             inputs:
               command: 'publish'
+              projects: '**/src/TechChallenge.Api/TechChallenge.Api.csproj'
               publishWebProjects: true
               arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
               zipAfterPublish: true
