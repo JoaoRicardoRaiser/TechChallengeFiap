@@ -18,11 +18,6 @@ stages:
         pool:
           name: Default
         steps:
-          - script: |
-              mkdir C:\AgentWork
-              echo "##vso[task.setvariable variable=Agent.WorkFolder]C:\AgentWork"
-            displayName: "Set work directory"
-            
           - task: UseDotNet@2
             displayName: 'Use .NET SDK $(dotnetSdkVersion)'
             inputs:
@@ -55,6 +50,7 @@ stages:
               publishWebProjects: true
               arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
               zipAfterPublish: true
+              workingDirectory: 'C:\AgentWork'
 
           - task: PublishBuildArtifacts@1
             displayName: 'Save Artifacts'
