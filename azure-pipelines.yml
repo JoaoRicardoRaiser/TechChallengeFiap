@@ -18,6 +18,11 @@ stages:
         pool:
           name: Default
         steps:
+          - script: |
+              mkdir C:\AgentWork
+              echo "##vso[task.setvariable variable=Agent.WorkFolder]C:\AgentWork"
+            displayName: "Set work directory"
+            
           - task: UseDotNet@2
             displayName: 'Use .NET SDK $(dotnetSdkVersion)'
             inputs:
