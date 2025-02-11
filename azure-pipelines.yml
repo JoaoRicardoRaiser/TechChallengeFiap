@@ -50,7 +50,6 @@ stages:
               publishWebProjects: true
               arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
               zipAfterPublish: true
-              workingDirectory: 'C:\AgentWork'
 
           - task: PublishBuildArtifacts@1
             displayName: 'Save Artifacts'
