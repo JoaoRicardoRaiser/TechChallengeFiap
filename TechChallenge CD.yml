@@ -54,6 +54,14 @@ stages:
               pathToPublish: '$(Build.ArtifactStagingDirectory)'
               artifactName: 'drop'
           
+  - stage: Deploy
+    displayName: 'Build'
+    jobs:
+      - job: 'Deploy'
+        displayName: 'Deploy'
+        pool:
+          name: Default
+        steps:
           - script: |
               echo o deploy em Produção foi executado com sucesso.
             displayName: Deploy em Produção
