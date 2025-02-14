@@ -1,22 +1,46 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 pr:
   branches:
     include:
       - develop
       - features/*
 
+variables:
+  buildConfiguration: 'Release'
+  releaseBranchName: 'release'
+  dotnetSdkVersion: '8.x'
+
 pool:
   name: self-hosted
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+stages:
+  - stage: Build
+    jobs:
+      - job: BuildJob
+        steps:
+          - task: UseDotNet@2
+            displayName: 'Use .NET SDK $(dotnetSdkVersion)'
+            inputs:
+              packageType: sdk
+              version: '$(dotnetSdkVersion)'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+          - task: DotNetCoreCLI@2
+            displayName: Restore
+            inputs:
+              command: restore
+              projects: '**/*.csproj'
+
+          - task: DotNetCoreCLI@2
+            displayName: Build Job
+            inputs:
+              command: 'build'
+              arguments: '--no-restore --configuration $(buildConfiguration)'
+              projects: '**/*.csproj'
+
+  - stage: Test
+    jobs:
+      - job: Test
+        steps:
+          - task: DotNetCoreCLI@2
+            displayName: Test
+            inputs:
+              command: test
