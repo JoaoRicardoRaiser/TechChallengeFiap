@@ -55,7 +55,7 @@ stages:
               artifactName: 'drop'
           
   - stage: Deploy
-    displayName: 'Build'
+    displayName: 'Deploy'
     jobs:
       - job: 'Deploy'
         displayName: 'Deploy'
