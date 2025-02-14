@@ -44,3 +44,24 @@ stages:
             displayName: Test
             inputs:
               command: test
+
+  - stage: Publish
+    jobs:
+      
+      - job: OutputDirectory
+        steps:
+          - script: echo $(Build.ArtifactStagingDirectory)/$(buildConfiguration)
+
+      - job: Publish
+        steps:
+          - task: DotNetCoreCLI@2
+            displayName: Publish
+            inputs:
+              command: publish
+              projects: '**/*.csproj'
+              arguments: '--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)'
+              publishWebProjects: false
+              zipAfterPublish: true
+          
+          - publish: '$(Build.ArtifactStagingDirectory)'
+            artifact: drop
