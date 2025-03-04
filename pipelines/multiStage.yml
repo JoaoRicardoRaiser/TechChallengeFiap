@@ -8,6 +8,11 @@ variables:
   buildConfiguration: 'Release'
   releaseBranchName: 'release'
   dotnetSdkVersion: '8.x'
+  dockerRegistryServiceConnection: 'f78f5bed-aa09-4a61-9f5a-bc2a701c3634'
+  imageRepository: techchallenge'
+  containerRegistry: 'techchallenge.azurecr.io'
+  dockerfilePath: '**/Dockerfile'
+  tag: '$(Build.BuildId)'
 
 pool:
   name: self-hosted
@@ -51,6 +56,16 @@ stages:
           
           - publish: '$(Build.ArtifactStagingDirectory)'
             artifact: drop
+          
+          - task: Docker@2
+            displayName: Build and push an image to container registry
+            inputs:
+              command: buildAndPush
+              repository: $(imageRepository)
+              dockerfile: $(dockerfilePath)
+              containerRegistry: $(dockerRegistryServiceConnection)
+              tags: |
+                $(tag)
   
   - stage: 'Development'
     displayName: 'Deploy to the development environment'
