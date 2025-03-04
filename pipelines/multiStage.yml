@@ -51,6 +51,13 @@ stages:
           
           - publish: '$(Build.ArtifactStagingDirectory)'
             artifact: drop
+          
+          - task: Docker@2
+            inputs:
+              containerRegistry: 'Azure Container Registry Service Connection'
+              repository: 'pipeline-acr'
+              command: 'buildAndPush'
+              Dockerfile: '**/Dockerfile'
   
   - stage: 'Development'
     displayName: 'Deploy to the development environment'
