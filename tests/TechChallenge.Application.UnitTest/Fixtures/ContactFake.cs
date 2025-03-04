@@ -1,9 +1,9 @@
 ﻿using TechChallenge.Domain.Entities;
 
 namespace TechChallenge.Application.UnitTest.Fixtures;
+
 public static class ContactFake
 {
-
     public static Contact New(string name)
         => new() 
         {

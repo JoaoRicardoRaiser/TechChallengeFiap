@@ -41,7 +41,6 @@ public static class IServiceCollectionExtensions
         services.AddMemoryCache();
         
         services.AddScoped<IPhoneAreaCache, PhoneAreaCache>();
-        services.AddScoped<IContactCache, ContactCache>();
 
         services.AddScoped<ICacheWarmUpService, CacheWarmUpService>();
     }

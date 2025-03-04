@@ -62,10 +62,9 @@ public class PostContactDtoTests
         };
 
         // Act
-        var areaCode = dto.PhoneAreaCode;
 
         // Assert
-        Assert.Equal("47", areaCode);
+        Assert.Equal("47", dto.PhoneAreaCode);
     }
 
     private static List<ValidationResult> ValidateModel(object model)

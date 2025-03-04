@@ -15,9 +15,7 @@ namespace TechChallenge.Application.UnitTest.Services;
 
 public class ContactServiceTests
 {
-    private readonly Mock<ILogger<ContactService>> _loggerMock = new();
     private readonly Mock<IRepository<Contact>> _contactRepositoryMock = new();
-    private readonly Mock<IContactCache> _contactCacheMock = new();
     private readonly Mock<IPhoneAreaCache> _phoneAreaCacheMock = new();
     private readonly Mock<IMapper> _mapperMock = new();
     private readonly IContactService _contactService;
@@ -26,43 +24,16 @@ public class ContactServiceTests
     public ContactServiceTests()
     {
         _contactService = new ContactService(
-            _loggerMock.Object,
             _contactRepositoryMock.Object,
-            _contactCacheMock.Object,
             _phoneAreaCacheMock.Object,
             _mapperMock.Object
         );
     }
 
     [Fact]
-    public async Task GetAsync_When_Contacts_On_Cache_Should_Return_Contacts_From_Cache()
-    {
-        // Arrange
-        
-        _contactCacheMock
-            .Setup(cc => cc.ContactsOnCache())
-            .Returns(true);
-
-        var contactsSaved = new List<Contact> { ContactFake.New("John"), ContactFake.New("Marie") };
-        _contactCacheMock
-            .Setup(cc => cc.GetAll())
-            .Returns(contactsSaved);
-
-        // Act
-        var contacts = await _contactService.GetAsync(null);
-
-        // Assert
-        contacts.Should().BeEquivalentTo(contactsSaved);
-    }
-
-    [Fact]
     public async Task GetAsync_When_Contacts_On_Repository_Should_Return_Contacts_And_Add_On_Cache()
     {
         // Arrange
-        _contactCacheMock
-            .Setup(cc => cc.ContactsOnCache())
-            .Returns(false);
-
         var contactsSaved = new List<Contact> { ContactFake.New("John"), ContactFake.New("Marie") };
         _contactRepositoryMock
             .Setup(cr => cr.GetAsync(It.IsAny<Expression<Func<Contact, bool>>>(), It.IsAny<string[]?>()))
@@ -72,7 +43,6 @@ public class ContactServiceTests
         var contacts = await _contactService.GetAsync(null);
 
         // Assert
-        _contactCacheMock.Verify(cc => cc.AddRange(contactsSaved), Times.Once);
         contacts.Should().BeEquivalentTo(contactsSaved);
     }
 
@@ -97,7 +67,6 @@ public class ContactServiceTests
 
         _contactRepositoryMock.Verify(cc => cc.AddAsync(It.IsAny<Contact>()), Times.Never);
         _contactRepositoryMock.Verify(cc => cc.SaveChangesAsync(), Times.Never);
-        _contactCacheMock.Verify(cc => cc.Add(It.IsAny<Contact>()), Times.Never);
     }
 
     [Fact]
@@ -132,7 +101,6 @@ public class ContactServiceTests
         
         _contactRepositoryMock.Verify(cc => cc.AddAsync(It.IsAny<Contact>()), Times.Never);
         _contactRepositoryMock.Verify(cc => cc.SaveChangesAsync(), Times.Never);
-        _contactCacheMock.Verify(cc => cc.Add(It.IsAny<Contact>()), Times.Never);
     }
 
     [Fact]
@@ -173,7 +141,6 @@ public class ContactServiceTests
         // Assert
         _contactRepositoryMock.Verify(cc => cc.AddAsync(contact), Times.Once);
         _contactRepositoryMock.Verify(cc => cc.SaveChangesAsync(), Times.Once);
-        _contactCacheMock.Verify(cc => cc.Add(contact), Times.Once);
     }
 
     [Fact]
@@ -197,7 +164,6 @@ public class ContactServiceTests
 
         _contactRepositoryMock.Verify(cc => cc.AddAsync(It.IsAny<Contact>()), Times.Never);
         _contactRepositoryMock.Verify(cc => cc.SaveChangesAsync(), Times.Never);
-        _contactCacheMock.Verify(cc => cc.Add(It.IsAny<Contact>()), Times.Never);
     }
 
     [Fact]
@@ -226,7 +192,6 @@ public class ContactServiceTests
 
         _contactRepositoryMock.Verify(cc => cc.AddAsync(It.IsAny<Contact>()), Times.Never);
         _contactRepositoryMock.Verify(cc => cc.SaveChangesAsync(), Times.Never);
-        _contactCacheMock.Verify(cc => cc.Add(It.IsAny<Contact>()), Times.Never);
     }
 
     [Fact]
@@ -269,7 +234,6 @@ public class ContactServiceTests
 
         // Assert
         _contactRepositoryMock.Verify(cc => cc.SaveChangesAsync(), Times.Once);
-        _contactCacheMock.Verify(cc => cc.Update(contact), Times.Once);
     }
 
     [Fact]
@@ -288,7 +252,6 @@ public class ContactServiceTests
 
         _contactRepositoryMock.Verify(cc => cc.Delete(It.IsAny<Contact>()), Times.Never);
         _contactRepositoryMock.Verify(cc => cc.SaveChangesAsync(), Times.Never);
-        _contactCacheMock.Verify(cc => cc.Delete(It.IsAny<Contact>()), Times.Never);
     }
 
     [Fact]
@@ -307,6 +270,5 @@ public class ContactServiceTests
         // Assert
         _contactRepositoryMock.Verify(cc => cc.Delete(It.IsAny<Contact>()), Times.Once);
         _contactRepositoryMock.Verify(cc => cc.SaveChangesAsync(), Times.Once);
-        _contactCacheMock.Verify(cc => cc.Delete(It.IsAny<Contact>()), Times.Once);
     }
 }

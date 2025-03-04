@@ -35,3 +35,6 @@ app.ApplyMigrations();
 await app.WarmUpCache();
 
 app.Run();
+
+
+public partial class Program { }

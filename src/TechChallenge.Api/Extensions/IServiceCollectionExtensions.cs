@@ -10,7 +10,7 @@ public static class IServiceCollectionExtensions
     {
         services.AddAutoMapper(
             [
-                Assembly.GetExecutingAssembly(), 
+                Assembly.GetExecutingAssembly(),
                 typeof(Application.Extensions.IServiceCollectionExtensions).Assembly
             ]);
 
