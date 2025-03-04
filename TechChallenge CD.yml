@@ -1,8 +1,5 @@
-pr:
-  branches:
-    include:
-      - 'develop'
-      - 'main'
+trigger:
+  - 'main'
 
 variables:
   buildConfiguration: 'Release'
@@ -43,12 +40,29 @@ stages:
               projects: '**/*.csproj'
 
           - task: DotNetCoreCLI@2
-            displayName: "Publish"
+            displayName: 'Publish .Net'
             inputs:
               command: 'publish'
-              projects: '**/*.csproj'
-              publishWebProjects: false
-              arguments: --no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)
+              projects: '**/src/TechChallenge.Api/TechChallenge.Api.csproj'
+              publishWebProjects: true
+              arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+              zipAfterPublish: true
 
-          - publish: '$(Build.ArtifactStagingDirectory)'
-            artifact: drop
+          - task: PublishBuildArtifacts@1
+            displayName: 'Save Artifacts'
+            inputs:
+              pathToPublish: '$(Build.ArtifactStagingDirectory)'
+              artifactName: 'drop'
+          
+  - stage: Deploy
+    displayName: 'Deploy'
+    jobs:
+      - job: 'Deploy'
+        displayName: 'Deploy'
+        pool:
+          name: Default
+        steps:
+          - script: |
+              echo o deploy em Produção foi executado com sucesso.
+            displayName: Deploy em Produção
+
