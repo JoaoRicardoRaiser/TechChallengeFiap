@@ -2,6 +2,7 @@ using TechChallenge.Api.Extensions;
 using TechChallenge.Infrastructure.Extensions;
 using TechChallenge.Application.Extensions;
 using TechChallenge.Api.Middlewares;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,9 +26,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.MapControllers();
+app.UseHttpMetrics();
+app.MapMetrics();
 
 app.UseHttpsRedirection();
-app.MapControllers();
 
 app.UseExceptionHandlingMiddleware();
 
