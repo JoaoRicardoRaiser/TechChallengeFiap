@@ -36,9 +36,16 @@ stages:
               arguments: '--no-restore --configuration $(buildConfiguration)'
               projects: '**/*.csproj'
           - task: DotNetCoreCLI@2
-            displayName: Test
+            displayName: Unit Test
             inputs:
               command: 'test'
+              projects: '**/*.UnitTest.csproj'
+          
+          - task: DotNetCoreCLI@2
+            displayName: Integration Test
+            inputs:
+              command: 'test'
+              projects: '**/*.IntegrationTest.csproj'
 
           - task: DotNetCoreCLI@2
             displayName: Publish
@@ -54,7 +61,7 @@ stages:
           
           - task: Docker@2
             inputs:
-              containerRegistry: 'Azure Container Registry Service Connection'
+              containerRegistry: 'Container Registry Service Connection (techchallenge)'
               repository: 'pipeline-acr'
               command: 'buildAndPush'
               Dockerfile: '**/Dockerfile'
