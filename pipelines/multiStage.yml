@@ -1,0 +1,119 @@
+pr:
+  branches:
+    include:
+      - develop
+      - features/*
+
+variables:
+  buildConfiguration: 'Release'
+  releaseBranchName: 'release'
+  dotnetSdkVersion: '8.x'
+
+pool:
+  name: self-hosted
+
+stages:
+  - stage: Build
+    jobs:
+      - job: Build
+        steps:
+          - task: UseDotNet@2
+            displayName: 'Use .NET SDK $(dotnetSdkVersion)'
+            inputs:
+              packageType: sdk
+              version: '$(dotnetSdkVersion)'
+
+          - task: DotNetCoreCLI@2
+            displayName: Restore
+            inputs:
+              command: restore
+              projects: '**/*.csproj'
+
+          - task: DotNetCoreCLI@2
+            displayName: Build Job
+            inputs:
+              command: 'build'
+              arguments: '--no-restore --configuration $(buildConfiguration)'
+              projects: '**/*.csproj'
+          - task: DotNetCoreCLI@2
+            displayName: Unit Test
+            inputs:
+              command: 'test'
+              projects: '**/*.UnitTest.csproj'
+          
+          - task: DotNetCoreCLI@2
+            displayName: Integration Test
+            inputs:
+              command: 'test'
+              projects: '**/*.IntegrationTest.csproj'
+
+          - task: DotNetCoreCLI@2
+            displayName: Publish
+            inputs:
+              command: publish
+              projects: '**/*.csproj'
+              arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)'
+              publishWebProjects: false
+              zipAfterPublish: true
+          
+          - publish: '$(Build.ArtifactStagingDirectory)'
+            artifact: drop
+          
+          - task: Docker@2
+            displayName: Build and Publish image
+            inputs:
+              containerRegistry: 'Container Registry Service Connection (techchallenge)'
+              repository: 'pipeline-acr'
+              command: 'buildAndPush'
+              Dockerfile: '**/Dockerfile'
+  
+  - stage: 'Development'
+    displayName: 'Deploy to the development environment'
+    dependsOn: Build
+    condition: succeeded()
+    jobs:
+      - deployment: Deploy
+        environment: development
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - download: current
+                  artifact: drop
+                - script: |
+                    echo O deploy em development foi realizado com sucesso.
+                  displayName: 'Deploy to the Development'
+
+  - stage: 'Staging'
+    displayName: 'Deploy to the staging environment'
+    dependsOn: Development
+    condition: succeeded()
+    jobs:
+      - deployment: Deploy
+        environment: staging
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - download: current
+                  artifact: drop
+                - script: |
+                    echo O deploy em staging foi realizado com sucesso.
+                  displayName: 'Deploy to the Staging'
+
+  - stage: 'Production'
+    displayName: 'Deploy to the production environment'
+    dependsOn: Staging
+    condition: succeeded()
+    jobs:
+      - deployment: Deploy
+        environment: production
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - download: current
+                  artifact: drop
+                - script: |
+                    echo O deploy em production foi realizado com sucesso.
+                  displayName: 'Deploy to the Production'

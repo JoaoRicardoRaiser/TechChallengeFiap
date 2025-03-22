@@ -68,6 +68,24 @@ public class ContactControllerTests(WebApplicationFixture webAppFixture, Databas
         contactSavedUpdated!.Phone.Should().Be(dto.PhoneNumber);
     }
 
+    [Fact]
+    public async Task DeleteAsync_When_Valid_Body_Return_Accepted_Result()
+    {
+        // Arrange
+        var contactSaved = ContactFake.New("Mike");
+        await databaseFixture.AddAsync(contactSaved);
+
+        // Act
+        var result = await _httpClient.DeleteAsync($"contacts/{contactSaved.Id}");
+        var responseContent = await result.Content.ReadAsStringAsync();
+
+        //Assert
+        result.StatusCode.Should().Be(HttpStatusCode.NoContent);
+
+        var contactSavedUpdated = await databaseFixture.SingleOrDefaultAsync<Contact>(x => x.Id == contactSaved.Id);
+        contactSavedUpdated.Should().BeNull();
+    }
+
 
     public static async Task<string> GetExpectedJson(string jsonName)
     {
