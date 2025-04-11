@@ -12,40 +12,50 @@ services:
       - ./data/postgres:/var/lib/postgresql/data
     networks:
       - tech_challenge_network
-
+  
+  rabbitMq:
+    image: rabbitmq:3-management
+    container_name: rabbitMq
+    ports:
+      - 15672:15672
+      - 5672:5672
+    networks:
+      - tech_challenge_network
+  
   app:
     build: .
-    container_name: app
+    container_name: create-contact-app
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Docker
     ports:
       - "8080:8080"
     networks:
       - tech_challenge_network
     depends_on:
       - postgres
+      - rabbitMq
 
-  prometheus:
-    image: prom/prometheus:latest
-    container_name: prometheus
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    ports:
-      - "9090:9090"
-    networks:
-      - tech_challenge_network
-    depends_on:
-      - app
-
-  grafana:
-    image: grafana/grafana:latest
-    container_name: grafana
-    ports:
-      - "3000:3000"
-    networks:
-      - tech_challenge_network
-    depends_on:
-      - prometheus
+#  prometheus:
+#    image: prom/prometheus:latest
+#    container_name: prometheus
+#    volumes:
+#      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+#    ports:
+#      - "9090:9090"
+#    networks:
+#      - tech_challenge_network
+#    depends_on:
+#      - app
+#
+#  grafana:
+#    image: grafana/grafana:latest
+#    container_name: grafana
+#    ports:
+#      - "3000:3000"
+#    networks:
+#      - tech_challenge_network
+#    depends_on:
+#      - prometheus
 
 networks:
   tech_challenge_network:
