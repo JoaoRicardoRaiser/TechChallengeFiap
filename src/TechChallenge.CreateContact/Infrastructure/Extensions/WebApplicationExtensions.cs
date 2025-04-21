@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TechChallenge.CreateContact.Application.Interfaces;
+using TechChallenge.CreateContact.Infrastructure.Interfaces;
 
 namespace TechChallenge.CreateContact.Infrastructure.Extensions;
 

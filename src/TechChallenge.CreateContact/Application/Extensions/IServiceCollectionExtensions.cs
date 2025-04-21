@@ -1,6 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using TechChallenge.CreateContact.Application.Dtos.Events;
 using TechChallenge.CreateContact.Application.Interfaces;
+using TechChallenge.CreateContact.Application.MessageHandlers;
 using TechChallenge.CreateContact.Application.Services;
+using TechChallenge.CreateContact.Infrastructure.Interfaces;
 
 namespace TechChallenge.CreateContact.Application.Extensions;
 
@@ -11,9 +14,17 @@ public static class IServiceCollectionExtensions
     {
         services.AddMapper();
         services.AddScoped<IContactService, ContactService>();
+        services.AddMessageHandlers();
         return services;
     }
 
-    public static IServiceCollection AddMapper(this IServiceCollection services)
+    private static IServiceCollection AddMapper(this IServiceCollection services)
         => services.AddAutoMapper(typeof(Program).Assembly);
+
+    private static IServiceCollection AddMessageHandlers(this IServiceCollection services)
+    {
+        services.AddScoped<IMessageHandler<ContactDeletedEventDto>, ContactDeletedMessageHandler>();
+
+        return services;
+    }
 }

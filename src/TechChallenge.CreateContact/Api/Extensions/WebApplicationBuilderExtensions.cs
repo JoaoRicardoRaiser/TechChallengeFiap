@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using TechChallenge.CreateContact.Application.Configuration;
+using TechChallenge.CreateContact.Application.Dtos.Configuration;
 
 namespace TechChallenge.CreateContact.Api.Extensions;
 

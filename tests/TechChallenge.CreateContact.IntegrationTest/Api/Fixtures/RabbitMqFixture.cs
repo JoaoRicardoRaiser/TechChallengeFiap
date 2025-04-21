@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
-using TechChallenge.CreateContact.Application.Interfaces;
-using TechChallenge.CreateContact.Application.Services;
+using TechChallenge.CreateContact.Infrastructure.Services;
+using TechChallenge.CreateContact.Infrastructure.Interfaces;
 using TechChallenge.CreateContact.IntegrationTest.Api.Helpers;
 using Testcontainers.RabbitMq;
 

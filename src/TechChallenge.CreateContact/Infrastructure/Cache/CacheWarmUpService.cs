@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using TechChallenge.CreateContact.Application.Interfaces;
 using TechChallenge.CreateContact.Domain.Entities;
 using TechChallenge.CreateContact.Domain.Interfaces;
+using TechChallenge.CreateContact.Infrastructure.Interfaces;
 
 namespace TechChallenge.CreateContact.Infrastructure.Cache;
 

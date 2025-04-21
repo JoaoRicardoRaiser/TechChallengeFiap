@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
-using TechChallenge.CreateContact.Application.Services;
+using TechChallenge.CreateContact.Infrastructure.Services;
 using TechChallenge.CreateContact.IntegrationTest.Api.Helpers;
 
 namespace TechChallenge.CreateContact.IntegrationTest.Api.Fixtures;

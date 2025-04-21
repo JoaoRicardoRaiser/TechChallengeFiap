@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
-using TechChallenge.CreateContact.Application.Configuration;
-using TechChallenge.CreateContact.Application.Interfaces;
+using TechChallenge.CreateContact.Application.Dtos.Configuration;
 using TechChallenge.CreateContact.Domain.Exceptions;
+using TechChallenge.CreateContact.Infrastructure.Interfaces;
 
 namespace TechChallenge.CreateContact.IntegrationTest.Api.Helpers;
 

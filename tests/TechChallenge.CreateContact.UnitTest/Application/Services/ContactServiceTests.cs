@@ -9,6 +9,7 @@ using TechChallenge.CreateContact.Application.UnitTest.Fixtures;
 using TechChallenge.CreateContact.Domain.Entities;
 using TechChallenge.CreateContact.Domain.Exceptions;
 using TechChallenge.CreateContact.Domain.Interfaces;
+using TechChallenge.CreateContact.Infrastructure.Interfaces;
 
 namespace TechChallenge.CreateContact.UnitTest.Application.Services;
 
@@ -17,7 +18,7 @@ public class ContactServiceTests
     private readonly Mock<IRepository<Contact>> _contactRepositoryMock = new();
     private readonly Mock<IPhoneAreaCache> _phoneAreaCacheMock = new();
     private readonly Mock<IMapper> _mapperMock = new();
-    private readonly Mock<IMessagePublisher<Contact>> _messagePublisherMock = new();
+    private readonly Mock<IMessagePublisherService<Contact>> _messagePublisherMock = new();
     private readonly IContactService _contactService;
 
     public ContactServiceTests()

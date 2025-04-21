@@ -24,6 +24,9 @@ public class Repository<TEntity>(DbContext dbContext) : IRepository<TEntity> whe
     public async Task AddAsync(TEntity entity)
         => await _dbSet.AddAsync(entity);
 
+    public void Delete(TEntity entity)
+        => _dbSet.Remove(entity);
+
     public Task SaveChangesAsync()
         => dbContext.SaveChangesAsync();
 

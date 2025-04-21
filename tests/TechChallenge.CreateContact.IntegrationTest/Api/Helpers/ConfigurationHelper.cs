@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using TechChallenge.CreateContact.Application.Configuration;
+using TechChallenge.CreateContact.Application.Dtos.Configuration;
 
 namespace TechChallenge.CreateContact.IntegrationTest.Api.Helpers;
 

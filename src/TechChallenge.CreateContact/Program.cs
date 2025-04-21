@@ -1,6 +1,9 @@
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using TechChallenge.CreateContact.Api.Extensions;
 using TechChallenge.CreateContact.Application.Extensions;
 using TechChallenge.CreateContact.Infrastructure.Extensions;
+using TechChallenge.CreateContact.Infrastructure.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,14 +19,25 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructure(builder.Configuration);
 
+builder.Services.AddHealthChecks()
+    .AddNpgSql(builder.Configuration.GetConnectionString("Postgres")!)
+    .AddRabbitMQ(sp =>
+    {
+        var rabbitMqService = sp.GetRequiredService<IRabbitMqService>();
+        return rabbitMqService.CreateConnectionAsync();
+    });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+
+app.MapHealthChecks("/health", new HealthCheckOptions
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
