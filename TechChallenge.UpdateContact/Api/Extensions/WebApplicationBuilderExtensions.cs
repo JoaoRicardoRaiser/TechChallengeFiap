@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using TechChallenge.CreateContact.Application.Dtos.Configuration;
+using TechChallenge.UpdateContact.Application.Dtos.Configuration;
 
-namespace TechChallenge.CreateContact.Api.Extensions;
+namespace TechChallenge.UpdateContact.Api.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class WebApplicationBuilderExtensions

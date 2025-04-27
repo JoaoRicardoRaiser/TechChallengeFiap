@@ -1,4 +1,4 @@
-﻿namespace TechChallenge.CreateContact.Application.Dtos;
+﻿namespace TechChallenge.UpdateContact.Application.Dtos;
 
 public record PhoneDto
 {

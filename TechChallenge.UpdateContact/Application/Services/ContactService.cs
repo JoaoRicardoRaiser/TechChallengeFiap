@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
-using TechChallenge.CreateContact.Application.Dtos;
-using TechChallenge.CreateContact.Application.Dtos.Events;
-using TechChallenge.CreateContact.Application.Interfaces;
-using TechChallenge.CreateContact.Domain.Entities;
-using TechChallenge.CreateContact.Domain.Exceptions;
-using TechChallenge.CreateContact.Domain.Interfaces;
-using TechChallenge.CreateContact.Infrastructure.Interfaces;
+using TechChallenge.UpdateContact.Application.Dtos;
+using TechChallenge.UpdateContact.Application.Dtos.Events;
+using TechChallenge.UpdateContact.Application.Interfaces;
+using TechChallenge.UpdateContact.Domain.Entities;
+using TechChallenge.UpdateContact.Domain.Exceptions;
+using TechChallenge.UpdateContact.Domain.Interfaces;
+using TechChallenge.UpdateContact.Infrastructure.Interfaces;
 using TechChallenge.UpdateContact.Application.Dtos;
 
-namespace TechChallenge.CreateContact.Application.Services;
+namespace TechChallenge.UpdateContact.Application.Services;
 
 public class ContactService(
     IRepository<Contact> contactRepository,
@@ -34,13 +34,6 @@ public class ContactService(
         contactRepository.Delete(contactSaved);
 
         await contactRepository.SaveChangesAsync();
-    }
-
-    private async Task ValidateContactAlredySavedAsync(CreateContactDto dto)
-    {
-        var contactSaved = await contactRepository.SingleOrDefaultAsync(c => c.Name == dto.Name);
-        if (contactSaved is not null)
-            throw new BusinessException($"Contact with this name alredy exists. Name: {dto.Name}");
     }
 
     private void ValidatePhoneAreaCodeExists(PhoneDto phoneDto)

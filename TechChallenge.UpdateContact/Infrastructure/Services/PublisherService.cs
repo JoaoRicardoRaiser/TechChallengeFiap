@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
 using RabbitMQ.Client;
 using System.Text;
-using TechChallenge.CreateContact.Domain.Exceptions;
-using TechChallenge.CreateContact.Infrastructure.Interfaces;
+using TechChallenge.UpdateContact.Domain.Exceptions;
+using TechChallenge.UpdateContact.Infrastructure.Interfaces;
 
-namespace TechChallenge.CreateContact.Infrastructure.Services;
+namespace TechChallenge.UpdateContact.Infrastructure.Services;
 
 public class PublisherService<T> : IMessagePublisherService<T>
 {

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using TechChallenge.CreateContact.Application.Dtos;
+using TechChallenge.UpdateContact.Application.Dtos;
 using TechChallenge.UpdateContact.Api.Dtos;
 using TechChallenge.UpdateContact.Application.Dtos;
 
-namespace TechChallenge.CreateContact.Api.Profiles;
+namespace TechChallenge.UpdateContact.Api.Profiles;
 
 public class ContactControllerProfile : Profile
 {

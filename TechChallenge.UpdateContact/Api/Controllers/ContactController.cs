@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using TechChallenge.CreateContact.Application.Interfaces;
+using TechChallenge.UpdateContact.Application.Interfaces;
 using TechChallenge.UpdateContact.Api.Dtos;
 using TechChallenge.UpdateContact.Application.Dtos;
 
-namespace TechChallenge.CreateContact.Controllers;
+
+namespace TechChallenge.UpdateContact.Controllers;
 
 [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest)]
 [Route("contacts")]

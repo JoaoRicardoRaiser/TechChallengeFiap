@@ -1,7 +1,7 @@
 ﻿using RabbitMQ.Client;
-using TechChallenge.CreateContact.Application.Dtos.Configuration;
+using TechChallenge.UpdateContact.Application.Dtos.Configuration;
 
-namespace TechChallenge.CreateContact.Infrastructure.Interfaces;
+namespace TechChallenge.UpdateContact.Infrastructure.Interfaces;
 
 public interface IRabbitMqService
 {

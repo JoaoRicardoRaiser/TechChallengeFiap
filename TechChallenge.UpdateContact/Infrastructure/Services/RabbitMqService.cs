@@ -2,10 +2,10 @@
 using Polly;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Exceptions;
-using TechChallenge.CreateContact.Application.Dtos.Configuration;
-using TechChallenge.CreateContact.Infrastructure.Interfaces;
+using TechChallenge.UpdateContact.Application.Dtos.Configuration;
+using TechChallenge.UpdateContact.Infrastructure.Interfaces;
 
-namespace TechChallenge.CreateContact.Infrastructure.Services;
+namespace TechChallenge.UpdateContact.Infrastructure.Services;
 
 public class RabbitMqService : IRabbitMqService
 {

@@ -1,11 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using TechChallenge.CreateContact.Application.Dtos.Events;
-using TechChallenge.CreateContact.Application.Interfaces;
-using TechChallenge.CreateContact.Application.MessageHandlers;
-using TechChallenge.CreateContact.Application.Services;
-using TechChallenge.CreateContact.Infrastructure.Interfaces;
+using TechChallenge.UpdateContact.Application.Dtos.Events;
+using TechChallenge.UpdateContact.Application.Interfaces;
+using TechChallenge.UpdateContact.Application.MessageHandlers;
+using TechChallenge.UpdateContact.Application.Services;
+using TechChallenge.UpdateContact.Infrastructure.Interfaces;
 
-namespace TechChallenge.CreateContact.Application.Extensions;
+namespace TechChallenge.UpdateContact.Application.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class IServiceCollectionExtensions

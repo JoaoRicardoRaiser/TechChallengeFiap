@@ -1,16 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TechChallenge.CreateContact.Application.Dtos.Events;
-using TechChallenge.CreateContact.Domain.Entities;
-using TechChallenge.CreateContact.Domain.Interfaces;
-using TechChallenge.CreateContact.Infrastructure.Cache;
-using TechChallenge.CreateContact.Infrastructure.Database;
-using TechChallenge.CreateContact.Infrastructure.Database.Repositories;
-using TechChallenge.CreateContact.Infrastructure.Interfaces;
-using TechChallenge.CreateContact.Infrastructure.Services;
-using TechChallenge.CreateContact.Infrastructure.Workers;
 using TechChallenge.UpdateContact.Application.Dtos.Events;
+using TechChallenge.UpdateContact.Domain.Entities;
+using TechChallenge.UpdateContact.Domain.Interfaces;
+using TechChallenge.UpdateContact.Infrastructure.Cache;
+using TechChallenge.UpdateContact.Infrastructure.Database;
+using TechChallenge.UpdateContact.Infrastructure.Database.Repositories;
+using TechChallenge.UpdateContact.Infrastructure.Interfaces;
+using TechChallenge.UpdateContact.Infrastructure.Services;
+using TechChallenge.UpdateContact.Infrastructure.Workers;
+using TechChallenge.UpdateContact.Application.Dtos.Events;
+using TechChallenge.UpdateContact.Infrastructure.Database;
 
-namespace TechChallenge.CreateContact.Infrastructure.Extensions;
+namespace TechChallenge.UpdateContact.Infrastructure.Extensions;
 
 public static class IServiceCollectionExtensions
 {
@@ -27,8 +28,8 @@ public static class IServiceCollectionExtensions
 
     private static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped<DbContext, CreateContactDbContext>();
-        services.AddDbContext<CreateContactDbContext>(
+        services.AddScoped<DbContext, UpdateContactDbContext>();
+        services.AddDbContext<UpdateContactDbContext>(
             options => options.UseNpgsql(configuration.GetConnectionString("Postgres"), 
             npgsqlOptionsAction => npgsqlOptionsAction.EnableRetryOnFailure(5, TimeSpan.FromSeconds(5), null)));
 

@@ -1,6 +1,6 @@
-﻿using TechChallenge.CreateContact.Infrastructure.Interfaces;
+﻿using TechChallenge.UpdateContact.Infrastructure.Interfaces;
 
-namespace TechChallenge.CreateContact.Infrastructure.Workers;
+namespace TechChallenge.UpdateContact.Infrastructure.Workers;
 
 public class MessageConsumerWorker<T>(IMessageConsumerService<T> messageConsumerService) : BackgroundService
 {

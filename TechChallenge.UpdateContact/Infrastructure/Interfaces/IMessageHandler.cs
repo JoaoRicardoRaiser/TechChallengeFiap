@@ -1,4 +1,4 @@
-﻿namespace TechChallenge.CreateContact.Infrastructure.Interfaces;
+﻿namespace TechChallenge.UpdateContact.Infrastructure.Interfaces;
 
 public interface IMessageHandler<T>
 {

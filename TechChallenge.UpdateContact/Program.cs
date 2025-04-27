@@ -1,9 +1,9 @@
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using TechChallenge.CreateContact.Api.Extensions;
-using TechChallenge.CreateContact.Application.Extensions;
-using TechChallenge.CreateContact.Infrastructure.Extensions;
-using TechChallenge.CreateContact.Infrastructure.Interfaces;
+using TechChallenge.UpdateContact.Api.Extensions;
+using TechChallenge.UpdateContact.Application.Extensions;
+using TechChallenge.UpdateContact.Infrastructure.Extensions;
+using TechChallenge.UpdateContact.Infrastructure.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

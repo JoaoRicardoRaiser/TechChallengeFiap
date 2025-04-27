@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using System.Diagnostics.CodeAnalysis;
-using TechChallenge.CreateContact.Domain.Entities;
-using TechChallenge.CreateContact.Infrastructure.Interfaces;
+using TechChallenge.UpdateContact.Domain.Entities;
+using TechChallenge.UpdateContact.Infrastructure.Interfaces;
 
-namespace TechChallenge.CreateContact.Infrastructure.Cache;
+namespace TechChallenge.UpdateContact.Infrastructure.Cache;
 
 [ExcludeFromCodeCoverage]
 public class PhoneAreaCache(IMemoryCache memoryCache) : IPhoneAreaCache

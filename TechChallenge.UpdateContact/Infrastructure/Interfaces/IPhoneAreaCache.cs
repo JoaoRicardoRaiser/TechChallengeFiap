@@ -1,6 +1,6 @@
-﻿using TechChallenge.CreateContact.Domain.Entities;
+﻿using TechChallenge.UpdateContact.Domain.Entities;
 
-namespace TechChallenge.CreateContact.Infrastructure.Interfaces;
+namespace TechChallenge.UpdateContact.Infrastructure.Interfaces;
 
 public interface IPhoneAreaCache
 {

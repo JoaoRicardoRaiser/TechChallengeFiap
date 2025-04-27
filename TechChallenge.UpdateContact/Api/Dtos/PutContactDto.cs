@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using TechChallenge.CreateContact.Api.Validations;
+using TechChallenge.UpdateContact.Api.Validations;
 
 namespace TechChallenge.UpdateContact.Api.Dtos
 {

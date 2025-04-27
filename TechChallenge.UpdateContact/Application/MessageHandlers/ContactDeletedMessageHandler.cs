@@ -1,8 +1,8 @@
-﻿using TechChallenge.CreateContact.Application.Dtos.Events;
-using TechChallenge.CreateContact.Application.Interfaces;
-using TechChallenge.CreateContact.Infrastructure.Interfaces;
+﻿using TechChallenge.UpdateContact.Application.Dtos.Events;
+using TechChallenge.UpdateContact.Application.Interfaces;
+using TechChallenge.UpdateContact.Infrastructure.Interfaces;
 
-namespace TechChallenge.CreateContact.Application.MessageHandlers;
+namespace TechChallenge.UpdateContact.Application.MessageHandlers;
 
 public class ContactDeletedMessageHandler(IContactService contactService) : IMessageHandler<ContactDeletedEventDto>
 {

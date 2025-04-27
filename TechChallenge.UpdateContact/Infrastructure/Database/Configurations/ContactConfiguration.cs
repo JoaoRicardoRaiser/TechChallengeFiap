@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TechChallenge.CreateContact.Domain.Entities;
+using TechChallenge.UpdateContact.Domain.Entities;
 
-namespace TechChallenge.CreateContact.Infrastructure.Database.Configurations;
+namespace TechChallenge.UpdateContact.Infrastructure.Database.Configurations;
 
 public class ContactConfiguration : IEntityTypeConfiguration<Contact>
 {

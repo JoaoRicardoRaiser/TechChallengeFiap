@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
-using TechChallenge.CreateContact.Domain.Entities;
+using TechChallenge.UpdateContact.Domain.Entities;
 
-namespace TechChallenge.CreateContact.Domain.Interfaces;
+namespace TechChallenge.UpdateContact.Domain.Interfaces;
 
 public interface IRepository<TEntity> where TEntity : EntityBase
 {
