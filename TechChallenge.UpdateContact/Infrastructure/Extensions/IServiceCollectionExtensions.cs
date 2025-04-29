@@ -10,6 +10,7 @@ using TechChallenge.UpdateContact.Infrastructure.Services;
 using TechChallenge.UpdateContact.Infrastructure.Workers;
 using TechChallenge.UpdateContact.Application.Dtos.Events;
 using TechChallenge.UpdateContact.Infrastructure.Database;
+using TechChallenge.UpdateContact.Application.Dtos;
 
 namespace TechChallenge.UpdateContact.Infrastructure.Extensions;
 
@@ -63,13 +64,13 @@ public static class IServiceCollectionExtensions
     }
 
     private static void AddPublishers(this IServiceCollection services)
-        => services.AddPublisher<Contact>("ContactCreated");
-
-    //private static void AddConsumers(this IServiceCollection services)
-    //    => services.AddConsumer<ContactDeletedEventDto>("ContactDeleted");
-
+        => services.AddPublisher<UpdateContactDto>("ContactUpdated");
+       
     private static void AddConsumers(this IServiceCollection services)
-        => services.AddConsumer<ContactUpdatedEventDto>("ContactUpdated");
+    {
+        services.AddConsumer<ContactDeletedEventDto>("ContactDeleted");
+        services.AddConsumer<Contact>("ContactCreated");
+    }
 
     private static IServiceCollection AddConsumer<T>(this IServiceCollection services, string consumerConfigKey)
     {
