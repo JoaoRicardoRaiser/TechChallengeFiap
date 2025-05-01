@@ -68,6 +68,21 @@ services:
       rabbitMq:
           condition: service_healthy         
 
+  update-contact-app:
+    build: src/TechChallenge.UpdateContact
+    container_name: update-contact-app
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+    ports:
+      - "8082:8080"
+    networks:
+      - tech_challenge_network
+    depends_on:
+      postgres:
+          condition: service_healthy
+      rabbitMq:
+          condition: service_healthy   
+
 #  prometheus:
 #    image: prom/prometheus:latest
 #    container_name: prometheus

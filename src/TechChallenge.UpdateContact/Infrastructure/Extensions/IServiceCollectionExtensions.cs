@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TechChallenge.UpdateContact.Application.Dtos;
 using TechChallenge.UpdateContact.Application.Dtos.Events;
 using TechChallenge.UpdateContact.Domain.Entities;
 using TechChallenge.UpdateContact.Domain.Interfaces;
@@ -8,9 +9,6 @@ using TechChallenge.UpdateContact.Infrastructure.Database.Repositories;
 using TechChallenge.UpdateContact.Infrastructure.Interfaces;
 using TechChallenge.UpdateContact.Infrastructure.Services;
 using TechChallenge.UpdateContact.Infrastructure.Workers;
-using TechChallenge.UpdateContact.Application.Dtos.Events;
-using TechChallenge.UpdateContact.Infrastructure.Database;
-using TechChallenge.UpdateContact.Application.Dtos;
 
 namespace TechChallenge.UpdateContact.Infrastructure.Extensions;
 
