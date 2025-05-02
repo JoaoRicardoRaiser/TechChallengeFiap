@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using TechChallenge.UpdateContact.Application.Dtos;
 using TechChallenge.UpdateContact.Api.Dtos;
 using TechChallenge.UpdateContact.Application.Dtos;
 

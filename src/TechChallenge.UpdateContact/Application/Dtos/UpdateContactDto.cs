@@ -1,6 +1,4 @@
-﻿using TechChallenge.UpdateContact.Application.Dtos;
-
-namespace TechChallenge.UpdateContact.Application.Dtos
+﻿namespace TechChallenge.UpdateContact.Application.Dtos
 {
     public class UpdateContactDto
     {

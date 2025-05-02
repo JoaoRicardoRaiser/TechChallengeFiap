@@ -8,7 +8,6 @@ using TechChallenge.UpdateContact.Infrastructure.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.AddConfiguration();
 
 builder.Services.AddControllers();

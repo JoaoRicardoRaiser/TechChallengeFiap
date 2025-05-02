@@ -6,7 +6,6 @@ using TechChallenge.UpdateContact.Domain.Entities;
 using TechChallenge.UpdateContact.Domain.Exceptions;
 using TechChallenge.UpdateContact.Domain.Interfaces;
 using TechChallenge.UpdateContact.Infrastructure.Interfaces;
-using TechChallenge.UpdateContact.Application.Dtos;
 
 namespace TechChallenge.UpdateContact.Application.Services;
 
@@ -16,7 +15,15 @@ public class ContactService(
     IMapper mapper,
     IMessagePublisherService<Contact> messagePublisher) : IContactService
 {
-    
+    public async Task CreateAsync(ContactCreatedEventDto dto)
+    {
+        var contact = mapper.Map<Contact>(dto);
+
+        await contactRepository.AddAsync(contact);
+
+        await contactRepository.SaveChangesAsync();
+    }
+
     public async Task UpdateAsync(UpdateContactDto dto)
     {
         ValidatePhoneAreaCodeExists(dto.Phone);
@@ -34,6 +41,8 @@ public class ContactService(
         contactRepository.Delete(contactSaved);
 
         await contactRepository.SaveChangesAsync();
+
+        await messagePublisher.SendMessageAsync(contactSaved);
     }
 
     private void ValidatePhoneAreaCodeExists(PhoneDto phoneDto)
