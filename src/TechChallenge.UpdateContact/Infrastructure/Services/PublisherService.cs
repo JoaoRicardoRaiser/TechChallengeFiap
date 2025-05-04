@@ -12,6 +12,7 @@ public class PublisherService<T> : IMessagePublisherService<T>
     private readonly string _exchange;
     private readonly string _routingKey;
 
+
     public PublisherService(IServiceCollection services, string publisherConfigKey)
     {
         var serviceProvider = services.BuildServiceProvider();

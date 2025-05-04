@@ -1,6 +1,8 @@
-﻿namespace TechChallenge.UpdateContact.Infrastructure.Interfaces;
+﻿using TechChallenge.UpdateContact.Domain.Entities;
+
+namespace TechChallenge.UpdateContact.Infrastructure.Interfaces;
 
 public interface IMessageHandler<T>
 {
-    Task Handle(T message);
+    Task Handle(T message);    
 }

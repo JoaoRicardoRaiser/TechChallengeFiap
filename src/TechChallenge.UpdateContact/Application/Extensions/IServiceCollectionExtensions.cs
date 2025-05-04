@@ -3,6 +3,7 @@ using TechChallenge.UpdateContact.Application.Dtos.Events;
 using TechChallenge.UpdateContact.Application.Interfaces;
 using TechChallenge.UpdateContact.Application.MessageHandlers;
 using TechChallenge.UpdateContact.Application.Services;
+using TechChallenge.UpdateContact.Domain.Entities;
 using TechChallenge.UpdateContact.Infrastructure.Interfaces;
 
 namespace TechChallenge.UpdateContact.Application.Extensions;
@@ -25,7 +26,8 @@ public static class IServiceCollectionExtensions
     {
         services.AddScoped<IMessageHandler<ContactDeletedEventDto>, ContactDeletedMessageHandler>();
         services.AddScoped<IMessageHandler<ContactCreatedEventDto>, ContactCreatedMessageHandler>();
+        services.AddScoped<IMessageHandler<Contact>, ContactMessageHandler>();
 
         return services;
-    }
+    }    
 }

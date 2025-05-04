@@ -24,10 +24,10 @@ public class ContactService(
         await contactRepository.SaveChangesAsync();
     }
 
-    public async Task UpdateAsync(UpdateContactDto dto)
+    public async Task UpdateAsync(Contact dto)
     {
-        ValidatePhoneAreaCodeExists(dto.Phone);
-        var contactSaved = await GetContactSavedByIdAsync(dto.ContactId);
+        //ValidatePhoneAreaCodeExists(dto.Phone);
+        var contactSaved = await GetContactSavedByIdAsync(dto.Id);
 
         mapper.Map(dto, contactSaved!);
 
@@ -54,4 +54,6 @@ public class ContactService(
     private async Task<Contact> GetContactSavedByIdAsync(Guid contactId)
         => await contactRepository.SingleOrDefaultAsync(c => c.Id == contactId)
         ?? throw new BusinessException($"Contact not exists. Id: {contactId}");
+
+    
 }

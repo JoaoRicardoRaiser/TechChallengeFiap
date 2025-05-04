@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using TechChallenge.UpdateContact.Application.Dtos;
 using TechChallenge.UpdateContact.Application.Dtos.Events;
 using TechChallenge.UpdateContact.Domain.Entities;
@@ -61,9 +62,11 @@ public static class IServiceCollectionExtensions
         return services;
     }
 
+    //private static void AddPublishers(this IServiceCollection services)
+    //    => services.AddPublisher<UpdateContactDto>("ContactUpdated");
     private static void AddPublishers(this IServiceCollection services)
-        => services.AddPublisher<UpdateContactDto>("ContactUpdated");
-       
+        => services.AddPublisher<Contact>("ContactUpdated");
+
     private static void AddConsumers(this IServiceCollection services)
     {
         services.AddConsumer<ContactDeletedEventDto>("ContactDeleted");
@@ -74,7 +77,7 @@ public static class IServiceCollectionExtensions
     {
         var serviceProvider = services.BuildServiceProvider();
 
-        services.AddSingleton<IMessageConsumerService<T>>(new MessageConsumerService<T>(serviceProvider.GetRequiredService<IServiceScopeFactory>(), consumerConfigKey));
+        services.AddSingleton<IMessageConsumerService<T>>(new MessageConsumerService<T>(serviceProvider.GetRequiredService<IServiceScopeFactory>(), consumerConfigKey));        
         services.AddHostedService<MessageConsumerWorker<T>>();
 
         return services;
@@ -82,7 +85,11 @@ public static class IServiceCollectionExtensions
 
     private static IServiceCollection AddPublisher<T>(this IServiceCollection services, string publisherConfigKey)
     {
-        services.AddSingleton<IMessagePublisherService<T>>(new PublisherService<T>(services, publisherConfigKey));
+        //services.AddSingleton<IMessagePublisherService<T>>(new PublisherService<T>(services, publisherConfigKey));
+        services.AddSingleton<IMessagePublisherService<Contact>>(new PublisherService<Contact>(services, publisherConfigKey));
+
         return services;
     }
+
+
 }

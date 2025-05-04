@@ -2,6 +2,7 @@
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
+using TechChallenge.UpdateContact.Domain.Entities;
 using TechChallenge.UpdateContact.Infrastructure.Interfaces;
 
 namespace TechChallenge.UpdateContact.Infrastructure.Services;
@@ -22,9 +23,10 @@ public class MessageConsumerService<T>(IServiceScopeFactory serviceScopeFactory,
         await rabbitMqService.ConsumerBindQueueAsync(consumerConfigKey);
 
         var channel = await rabbitMqService.CreateChannelAsync();
-        
+
         var messageHandler = scope.ServiceProvider.GetRequiredService<IMessageHandler<T>>();
         
+
         var consumer = new AsyncEventingBasicConsumer(channel);
 
         consumer.ReceivedAsync += async (model, ea) =>

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using TechChallenge.UpdateContact.Application.Interfaces;
 using TechChallenge.UpdateContact.Api.Dtos;
 using TechChallenge.UpdateContact.Application.Dtos;
+using TechChallenge.UpdateContact.Domain.Entities;
 
 
 namespace TechChallenge.UpdateContact.Controllers;
@@ -17,10 +18,10 @@ public class ContactController(IContactService contactService, IMapper mapper) :
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        var updateContactDto = mapper.Map<UpdateContactDto>(dto);
-        updateContactDto.ContactId = contactId;
+        var updateContact = mapper.Map<Contact>(dto);
+        updateContact.Id = contactId;
 
-        await contactService.UpdateAsync(updateContactDto);
+        await contactService.UpdateAsync(updateContact);
 
         return Accepted();
     }
