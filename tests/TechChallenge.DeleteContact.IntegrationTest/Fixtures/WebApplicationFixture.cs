@@ -4,10 +4,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Raisersoft.EasyRabbit.Extensions;
-using TechChallenge.CreateContact.Application.Dtos.Events;
-using TechChallenge.CreateContact.Domain.Entities;
+using TechChallenge.DeleteContact.Application.Dtos.Events;
+using TechChallenge.DeleteContact.Domain.Entities;
 
-namespace TechChallenge.CreateContact.IntegrationTest.Api.Fixtures;
+namespace TechChallenge.DeleteContact.IntegrationTest.Fixtures;
 
 public class WebApplicationFixture : WebApplicationFactory<Program>
 {

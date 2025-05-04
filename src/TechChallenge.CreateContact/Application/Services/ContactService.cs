@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Raisersoft.EasyRabbit.Interfaces;
 using TechChallenge.CreateContact.Application.Dtos;
 using TechChallenge.CreateContact.Application.Dtos.Events;
 using TechChallenge.CreateContact.Application.Interfaces;
@@ -31,7 +32,7 @@ public class ContactService(
 
     public async Task DeleteAsync(ContactDeletedEventDto dto)
     {
-        var contactSaved = await GetContactSavedByIdAsync(dto.Id);
+        var contactSaved = await GetContactSavedByIdAsync(dto.ContactId);
 
         contactRepository.Delete(contactSaved);
 

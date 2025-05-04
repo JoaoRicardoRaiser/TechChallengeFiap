@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FluentAssertions;
 using Moq;
+using Raisersoft.EasyRabbit.Interfaces;
 using System.Linq.Expressions;
 using TechChallenge.CreateContact.Application.Dtos;
 using TechChallenge.CreateContact.Application.Interfaces;
@@ -92,6 +93,47 @@ public class ContactServiceTests
 
     [Fact]
     public async Task CreateAsync_Should_Create_Contact_Correctly()
+    {
+        // Arrange
+
+        _phoneAreaCacheMock
+            .Setup(pac => pac.Exists(It.Is<int>(x => x == 47)))
+            .Returns(true);
+
+        var phoneArea = new PhoneArea
+        {
+            Code = 47,
+            Region = "Region"
+        };
+
+        _phoneAreaCacheMock
+            .Setup(pac => pac.GetByCode(It.Is<int>(x => x == 47)))
+            .Returns(phoneArea);
+
+        var createContactDto = new CreateContactDto
+        {
+            Name = "John Doe",
+            Email = "johndoe@email.com",
+            Phone = new PhoneDto { Number = "47123456789" }
+        };
+
+        var contact = ContactFake.New("John Doe");
+
+        _mapperMock
+            .Setup(m => m.Map<Contact>(createContactDto))
+            .Returns(contact);
+
+        // Act
+        await _contactService.CreateAsync(createContactDto);
+
+        // Assert
+        _contactRepositoryMock.Verify(cc => cc.AddAsync(contact), Times.Once);
+        _contactRepositoryMock.Verify(cc => cc.SaveChangesAsync(), Times.Once);
+        _messagePublisherMock.Verify(mp => mp.SendMessageAsync(contact), Times.Once);
+    }
+
+    [Fact]
+    public async Task DeleteAsync_Should_Create_Contact_Correctly()
     {
         // Arrange
 

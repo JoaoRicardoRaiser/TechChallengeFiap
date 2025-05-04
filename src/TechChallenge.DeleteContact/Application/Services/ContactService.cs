@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
+using Raisersoft.EasyRabbit.Interfaces;
 using TechChallenge.DeleteContact.Application.Dtos.Events;
 using TechChallenge.DeleteContact.Application.Interfaces;
 using TechChallenge.DeleteContact.Domain.Entities;
 using TechChallenge.DeleteContact.Domain.Exceptions;
 using TechChallenge.DeleteContact.Domain.Interfaces;
-using TechChallenge.DeleteContact.Infrastructure.Interfaces;
 
 namespace TechChallenge.DeleteContact.Application.Services;
 
 public class ContactService(
     IRepository<Contact> contactRepository,
     IMapper mapper,
-    IPublisherService<Contact> messagePublisher) : IContactService
+    IMessagePublisherService<ContactDeletedEventDto> messagePublisher) : IContactService
 {
     public async Task CreateAsync(ContactCreatedEventDto dto)
     {
@@ -30,7 +30,8 @@ public class ContactService(
 
         await contactRepository.SaveChangesAsync();
 
-        await messagePublisher.SendMessageAsync(contactSaved);
+        var @event = new ContactDeletedEventDto { ContactId = contactSaved.Id };
+        await messagePublisher.SendMessageAsync(@event);
     }
 
 

@@ -1,9 +1,9 @@
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Raisersoft.EasyRabbit.Interfaces;
 using TechChallenge.CreateContact.Api.Extensions;
 using TechChallenge.CreateContact.Application.Extensions;
 using TechChallenge.CreateContact.Infrastructure.Extensions;
-using TechChallenge.CreateContact.Infrastructure.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +24,7 @@ builder.Services.AddHealthChecks()
     .AddRabbitMQ(sp =>
     {
         var rabbitMqService = sp.GetRequiredService<IRabbitMqService>();
-        return rabbitMqService.CreateConnectionAsync();
+        return rabbitMqService.Connection;
     });
 
 var app = builder.Build();

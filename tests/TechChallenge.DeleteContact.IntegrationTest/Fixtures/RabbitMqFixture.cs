@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Raisersoft.EasyRabbit.Services;
-using TechChallenge.CreateContact.IntegrationTest.Api.Helpers;
+using TechChallenge.DeleteContact.IntegrationTest.Helpers;
 using Testcontainers.RabbitMq;
 
-namespace TechChallenge.CreateContact.IntegrationTest.Api.Fixtures;
+namespace TechChallenge.DeleteContact.IntegrationTest.Fixtures;
 
 public class RabbitMqFixture
 {
@@ -11,10 +11,10 @@ public class RabbitMqFixture
             .WithImage("rabbitmq:3-management")
             .WithUsername("guest")
             .WithPassword("guest")
-            .WithPortBinding(15672, 15672)
-            .WithPortBinding(5672, 5672)
+            .WithPortBinding(26783, 15672)
+            .WithPortBinding(6783, 5672)
             .Build();
-    
+
     public readonly RabbitMqService RabbitMqService;
 
     public RabbitMqFixture()
@@ -34,7 +34,7 @@ public class RabbitMqFixture
 
         return JsonConvert.DeserializeObject<T>(text);
     }
-    
+
     public async Task<int> CountMessageFromQueueAsync(string queueName)
     {
         var channel = await RabbitMqService.CreateChannelAsync();

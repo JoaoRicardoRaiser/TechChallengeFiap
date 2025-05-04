@@ -1,10 +1,10 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using Raisersoft.EasyRabbit.Interfaces;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using TechChallenge.DeleteContact.Application.Dtos.Events;
 using TechChallenge.DeleteContact.Application.Interfaces;
 using TechChallenge.DeleteContact.Application.MessageHandlers;
 using TechChallenge.DeleteContact.Application.Services;
-using TechChallenge.DeleteContact.Infrastructure.Interfaces;
 
 namespace TechChallenge.DeleteContact.Application.Extensions;
 

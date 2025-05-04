@@ -8,7 +8,7 @@ namespace TechChallenge.DeleteContact.Api.Controllers;
 public class ContactController(IContactService contactService) : Controller
 {
     [HttpDelete("{contactId}")]
-    public async Task<IActionResult> Delete(Guid contactId)
+    public async Task<IActionResult> DeleteAsync(Guid contactId)
     {
         await contactService.DeleteAsync(contactId);
 

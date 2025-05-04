@@ -1,12 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Raisersoft.EasyRabbit.Extensions;
 using TechChallenge.DeleteContact.Application.Dtos.Events;
-using TechChallenge.DeleteContact.Domain.Entities;
 using TechChallenge.DeleteContact.Domain.Interfaces;
 using TechChallenge.DeleteContact.Infrastructure.Database;
 using TechChallenge.DeleteContact.Infrastructure.Database.Repositories;
-using TechChallenge.DeleteContact.Infrastructure.Interfaces;
-using TechChallenge.DeleteContact.Infrastructure.Services;
-using TechChallenge.DeleteContact.Infrastructure.Workers;
 
 namespace TechChallenge.DeleteContact.Infrastructure.Extensions;
 
@@ -38,29 +35,17 @@ public static class IServiceCollectionExtensions
 
     public static IServiceCollection AddRabbitMq(this IServiceCollection services)
     {
-        services.AddSingleton<IRabbitMqService, RabbitMqService>();
+        services.AddEasyRabbitMq();
 
-        services.AddPublisher<Contact>("ContactDeleted");
-
-        services.AddConsumer<ContactCreatedEventDto>("ContactCreated");
-
-        return services;
-    }
-
-    private static IServiceCollection AddPublisher<T>(this IServiceCollection services, string publisherConfigKey)
-    {
-        services.AddSingleton<IPublisherService<T>>(new PublisherService<T>(services, publisherConfigKey));
-        return services;
-    }
-
-    private static IServiceCollection AddConsumer<T>(this IServiceCollection services, string consumerConfigKey)
-    {
-        var serviceProvider = services.BuildServiceProvider();
-
-        services.AddSingleton<IMessageConsumerService<T>>(new MessageConsumerService<T>(serviceProvider.GetRequiredService<IServiceScopeFactory>(), consumerConfigKey));
-
-        services.AddHostedService<MessageConsumerWorker<T>>();
+        services.AddPublishers();
+        services.AddConsumers();
 
         return services;
     }
+
+    private static void AddConsumers(this IServiceCollection services)
+        => services.AddConsumer<ContactCreatedEventDto>("ContactCreated");
+
+    private static void AddPublishers(this IServiceCollection services)
+        => services.AddPublisher<ContactDeletedEventDto>("ContactDeleted");
 }

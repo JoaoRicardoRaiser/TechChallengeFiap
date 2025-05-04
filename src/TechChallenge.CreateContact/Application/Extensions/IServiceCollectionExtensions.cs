@@ -1,9 +1,9 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using Raisersoft.EasyRabbit.Interfaces;
+using System.Diagnostics.CodeAnalysis;
 using TechChallenge.CreateContact.Application.Dtos.Events;
 using TechChallenge.CreateContact.Application.Interfaces;
 using TechChallenge.CreateContact.Application.MessageHandlers;
 using TechChallenge.CreateContact.Application.Services;
-using TechChallenge.CreateContact.Infrastructure.Interfaces;
 
 namespace TechChallenge.CreateContact.Application.Extensions;
 

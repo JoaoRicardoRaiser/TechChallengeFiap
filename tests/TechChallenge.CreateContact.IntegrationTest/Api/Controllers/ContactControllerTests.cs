@@ -4,6 +4,7 @@ using System.Net.Http.Json;
 using TechChallenge.CreateContact.IntegrationTest.Api.Fakes;
 using TechChallenge.CreateContact.IntegrationTest.Api.Fixtures;
 using TechChallenge.CreateContact.Domain.Entities;
+using FluentAssertions.Equivalency;
 
 namespace TechChallenge.CreateContact.IntegrationTest.Api.Controllers;
 
@@ -24,11 +25,27 @@ public class ContactControllerTests(WebApplicationFixture webAppFixture, Databas
 
         //Assert
         result.StatusCode.Should().Be(HttpStatusCode.Accepted);
-        
-        var contactSaved = await databaseFixture.SingleOrDefaultAsync<Contact>(x => x.Name == dto.Name && x.Phone == dto.PhoneNumber && x.Email == dto.Email);
-        contactSaved.Should().NotBeNull();
 
-        var message = await rabbitMqFixture.GetMessageFromQueueAsync<Contact>("contact_queue_test");
+        var expectedContactSaved = new Contact
+        {
+            Name = dto.Name!,
+            Email = dto.Email!,
+            Phone = dto.PhoneNumber!,
+            PhoneAreaCode = int.Parse(dto.PhoneAreaCode),
+        };
+
+        var contactSaved = await databaseFixture.SingleOrDefaultAsync<Contact>(x => x.Name == dto.Name && x.Phone == dto.PhoneNumber && x.Email == dto.Email);
+        contactSaved.Should().BeEquivalentTo(expectedContactSaved, ContactAssertConfiguration);
+
+        var message = await rabbitMqFixture.GetMessageFromQueueAsync<Contact>("cc_contact_created_test");
         message.Should().BeEquivalentTo(contactSaved);
+    }
+
+    private EquivalencyAssertionOptions<Contact> ContactAssertConfiguration(EquivalencyAssertionOptions<Contact> config)
+    {
+        config.Excluding(c => c.Id);
+        config.Excluding(c => c.PhoneArea);
+
+        return config;
     }
 }
