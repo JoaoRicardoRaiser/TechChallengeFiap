@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using TechChallenge.UpdateContact.Application.Dtos;
 using TechChallenge.UpdateContact.Application.Dtos.Events;
 using TechChallenge.UpdateContact.Domain.Entities;
 using TechChallenge.UpdateContact.Domain.Interfaces;
@@ -47,7 +45,7 @@ public static class IServiceCollectionExtensions
         services.AddMemoryCache();
         services.AddScoped<ICacheWarmUpService, CacheWarmUpService>();
         services.AddScoped<IPhoneAreaCache, PhoneAreaCache>();
-        
+
         return services;
     }
 
@@ -61,16 +59,14 @@ public static class IServiceCollectionExtensions
 
         return services;
     }
-
-    //private static void AddPublishers(this IServiceCollection services)
-    //    => services.AddPublisher<UpdateContactDto>("ContactUpdated");
+   
     private static void AddPublishers(this IServiceCollection services)
         => services.AddPublisher<Contact>("ContactUpdated");
 
     private static void AddConsumers(this IServiceCollection services)
     {
         services.AddConsumer<ContactDeletedEventDto>("ContactDeleted");
-        services.AddConsumer<Contact>("ContactCreated");
+        services.AddConsumer<ContactCreatedEventDto>("ContactCreated");
     }
 
     private static IServiceCollection AddConsumer<T>(this IServiceCollection services, string consumerConfigKey)
@@ -84,12 +80,10 @@ public static class IServiceCollectionExtensions
     }
 
     private static IServiceCollection AddPublisher<T>(this IServiceCollection services, string publisherConfigKey)
-    {
-        //services.AddSingleton<IMessagePublisherService<T>>(new PublisherService<T>(services, publisherConfigKey));
+    {        
         services.AddSingleton<IMessagePublisherService<Contact>>(new PublisherService<Contact>(services, publisherConfigKey));
-
+       
         return services;
     }
-
-
+    
 }

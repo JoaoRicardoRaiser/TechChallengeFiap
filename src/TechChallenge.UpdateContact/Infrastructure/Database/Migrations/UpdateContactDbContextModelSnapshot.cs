@@ -2,30 +2,27 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using TechChallenge.CreateContact.Infrastructure.Database;
+using TechChallenge.UpdateContact.Infrastructure.Database;
 
 #nullable disable
 
-namespace TechChallenge.CreateContact.Infrastructure.Database.Migrations
+namespace TechChallenge.UpdateContact.Infrastructure.Database.Migrations
 {
-    [DbContext(typeof(CreateContactDbContext))]
-    [Migration("20250404164412_AddedContactTable")]
-    partial class AddedContactTable
+    [DbContext(typeof(UpdateContactDbContext))]
+    partial class UpdateContactDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.3")
+                .HasAnnotation("ProductVersion", "9.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("TechChallenge.CreateContact.Domain.Entities.Contact", b =>
+            modelBuilder.Entity("TechChallenge.UpdateContact.Domain.Entities.Contact", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -53,7 +50,7 @@ namespace TechChallenge.CreateContact.Infrastructure.Database.Migrations
                     b.ToTable("Contact", (string)null);
                 });
 
-            modelBuilder.Entity("TechChallenge.CreateContact.Domain.Entities.PhoneArea", b =>
+            modelBuilder.Entity("TechChallenge.UpdateContact.Domain.Entities.PhoneArea", b =>
                 {
                     b.Property<int>("Code")
                         .ValueGeneratedOnAdd()
@@ -70,9 +67,9 @@ namespace TechChallenge.CreateContact.Infrastructure.Database.Migrations
                     b.ToTable("PhoneArea", (string)null);
                 });
 
-            modelBuilder.Entity("TechChallenge.CreateContact.Domain.Entities.Contact", b =>
+            modelBuilder.Entity("TechChallenge.UpdateContact.Domain.Entities.Contact", b =>
                 {
-                    b.HasOne("TechChallenge.CreateContact.Domain.Entities.PhoneArea", "PhoneArea")
+                    b.HasOne("TechChallenge.UpdateContact.Domain.Entities.PhoneArea", "PhoneArea")
                         .WithMany()
                         .HasForeignKey("PhoneAreaCode")
                         .OnDelete(DeleteBehavior.Cascade)

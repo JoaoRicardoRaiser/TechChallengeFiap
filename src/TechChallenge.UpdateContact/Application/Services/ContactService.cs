@@ -24,15 +24,18 @@ public class ContactService(
         await contactRepository.SaveChangesAsync();
     }
 
-    public async Task UpdateAsync(Contact dto)
+    public async Task UpdateAsync(UpdateContactDto dto)
     {
-        //ValidatePhoneAreaCodeExists(dto.Phone);
-        var contactSaved = await GetContactSavedByIdAsync(dto.Id);
+        ValidatePhoneAreaCodeExists(dto.Phone);
 
-        mapper.Map(dto, contactSaved!);
+        var contact = await GetContactSavedByIdAsync(dto.ContactId);
+
+        contact.Email = dto.Email;
+        contact.Phone = dto.Phone.Number;
+        contact.PhoneAreaCode = int.Parse(dto.Phone.Number[..2]);
 
         await contactRepository.SaveChangesAsync();
-    }
+    }    
 
     public async Task DeleteAsync(ContactDeletedEventDto dto)
     {

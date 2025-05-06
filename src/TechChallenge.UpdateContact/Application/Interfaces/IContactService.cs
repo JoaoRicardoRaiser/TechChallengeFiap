@@ -8,6 +8,7 @@ public interface IContactService
 {
     
     Task DeleteAsync(ContactDeletedEventDto dto);
-    Task UpdateAsync(Contact dto);
+    //Task UpdateAsync(Contact dto);
+    Task UpdateAsync(UpdateContactDto dto);
     Task CreateAsync(ContactCreatedEventDto dto);    
 }

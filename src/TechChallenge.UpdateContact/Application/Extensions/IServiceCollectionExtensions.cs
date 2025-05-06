@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using TechChallenge.UpdateContact.Application.Dtos;
 using TechChallenge.UpdateContact.Application.Dtos.Events;
 using TechChallenge.UpdateContact.Application.Interfaces;
 using TechChallenge.UpdateContact.Application.MessageHandlers;
@@ -26,7 +27,7 @@ public static class IServiceCollectionExtensions
     {
         services.AddScoped<IMessageHandler<ContactDeletedEventDto>, ContactDeletedMessageHandler>();
         services.AddScoped<IMessageHandler<ContactCreatedEventDto>, ContactCreatedMessageHandler>();
-        services.AddScoped<IMessageHandler<Contact>, ContactMessageHandler>();
+        services.AddScoped<IMessageHandler<UpdateContactDto>, ContactMessageHandler>();
 
         return services;
     }    

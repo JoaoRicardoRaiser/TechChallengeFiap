@@ -18,10 +18,14 @@ public class ContactController(IContactService contactService, IMapper mapper) :
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        var updateContact = mapper.Map<Contact>(dto);
-        updateContact.Id = contactId;
+        var updateDto = new UpdateContactDto
+        {
+            ContactId = contactId,
+            Email = dto.Email!,
+            Phone = new PhoneDto { Number = dto.PhoneNumber! }
+        };
 
-        await contactService.UpdateAsync(updateContact);
+        await contactService.UpdateAsync(updateDto);
 
         return Accepted();
     }

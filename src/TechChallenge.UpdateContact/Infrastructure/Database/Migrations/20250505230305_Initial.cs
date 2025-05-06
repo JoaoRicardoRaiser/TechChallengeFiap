@@ -1,16 +1,30 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace TechChallenge.CreateContact.Infrastructure.Database.Migrations
+namespace TechChallenge.UpdateContact.Infrastructure.Database.Migrations
 {
     /// <inheritdoc />
-    public partial class AddedContactTable : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "PhoneArea",
+                columns: table => new
+                {
+                    Code = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Region = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PhoneArea", x => x.Code);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Contact",
                 columns: table => new
@@ -43,6 +57,9 @@ namespace TechChallenge.CreateContact.Infrastructure.Database.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Contact");
+
+            migrationBuilder.DropTable(
+                name: "PhoneArea");
         }
     }
 }
