@@ -4,7 +4,7 @@ using TechChallenge.CreateContact.Domain.Entities;
 using TechChallenge.CreateContact.Infrastructure.Database;
 using Testcontainers.PostgreSql;
 
-namespace TechChallenge.CreateContact.IntegrationTest.Api.Fixtures;
+namespace TechChallenge.CreateContact.IntegrationTest.Fixtures;
 
 public class DatabaseFixture : IDisposable
 {

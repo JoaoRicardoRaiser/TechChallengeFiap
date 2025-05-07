@@ -4,6 +4,7 @@ using Moq;
 using Raisersoft.EasyRabbit.Interfaces;
 using System.Linq.Expressions;
 using TechChallenge.CreateContact.Application.Dtos;
+using TechChallenge.CreateContact.Application.Dtos.Events;
 using TechChallenge.CreateContact.Application.Interfaces;
 using TechChallenge.CreateContact.Application.Services;
 using TechChallenge.CreateContact.Application.UnitTest.Fixtures;
@@ -133,43 +134,46 @@ public class ContactServiceTests
     }
 
     [Fact]
-    public async Task DeleteAsync_Should_Create_Contact_Correctly()
+    public async Task DeleteAsync_Shouldnt_Delete_Contact_When_Contact_Not_Exists()
     {
         // Arrange
+        var contactSaved = ContactFake.New("John Doe");
 
-        _phoneAreaCacheMock
-            .Setup(pac => pac.Exists(It.Is<int>(x => x == 47)))
-            .Returns(true);
-
-        var phoneArea = new PhoneArea
+        var dto = new ContactDeletedEventDto
         {
-            Code = 47,
-            Region = "Region"
+            ContactId = contactSaved.Id
         };
-
-        _phoneAreaCacheMock
-            .Setup(pac => pac.GetByCode(It.Is<int>(x => x == 47)))
-            .Returns(phoneArea);
-
-        var createContactDto = new CreateContactDto
-        {
-            Name = "John Doe",
-            Email = "johndoe@email.com",
-            Phone = new PhoneDto { Number = "47123456789" }
-        };
-
-        var contact = ContactFake.New("John Doe");
-
-        _mapperMock
-            .Setup(m => m.Map<Contact>(createContactDto))
-            .Returns(contact);
 
         // Act
-        await _contactService.CreateAsync(createContactDto);
+        var exception = await Assert.ThrowsAsync< BusinessException>(async() => await _contactService.DeleteAsync(dto));
 
         // Assert
-        _contactRepositoryMock.Verify(cc => cc.AddAsync(contact), Times.Once);
+        exception.Message.Should().Be($"Contact not exists. Id: {contactSaved.Id}");
+
+        _contactRepositoryMock.Verify(cc => cc.Delete(contactSaved), Times.Never);
+        _contactRepositoryMock.Verify(cc => cc.SaveChangesAsync(), Times.Never);
+    }
+
+    [Fact]
+    public async Task DeleteAsync_Should_Delete_Contact_Correctly()
+    {
+        // Arrange
+        var contactSaved = ContactFake.New("John Doe");
+
+        var dto = new ContactDeletedEventDto
+        {
+            ContactId = contactSaved.Id
+        };
+
+        _contactRepositoryMock
+            .Setup(r => r.SingleOrDefaultAsync(It.IsAny<Expression<Func<Contact, bool>>>(), It.IsAny<string[]?>()))
+            .ReturnsAsync(contactSaved);
+
+        // Act
+        await _contactService.DeleteAsync(dto);
+
+        // Assert
+        _contactRepositoryMock.Verify(cc => cc.Delete(contactSaved), Times.Once);
         _contactRepositoryMock.Verify(cc => cc.SaveChangesAsync(), Times.Once);
-        _messagePublisherMock.Verify(mp => mp.SendMessageAsync(contact), Times.Once);
     }
 }

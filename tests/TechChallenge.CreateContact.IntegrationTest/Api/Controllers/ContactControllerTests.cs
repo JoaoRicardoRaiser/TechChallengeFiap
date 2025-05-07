@@ -1,10 +1,10 @@
 ﻿using FluentAssertions;
 using System.Net;
 using System.Net.Http.Json;
-using TechChallenge.CreateContact.IntegrationTest.Api.Fakes;
-using TechChallenge.CreateContact.IntegrationTest.Api.Fixtures;
 using TechChallenge.CreateContact.Domain.Entities;
 using FluentAssertions.Equivalency;
+using TechChallenge.CreateContact.IntegrationTest.Fakes;
+using TechChallenge.CreateContact.IntegrationTest.Fixtures;
 
 namespace TechChallenge.CreateContact.IntegrationTest.Api.Controllers;
 

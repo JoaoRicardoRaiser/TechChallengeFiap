@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace TechChallenge.CreateContact.IntegrationTest.Api.Helpers;
+namespace TechChallenge.CreateContact.IntegrationTest.Helpers;
 
 public static class ConfigurationHelper
 {

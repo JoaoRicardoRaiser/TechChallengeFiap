@@ -7,7 +7,7 @@ using Raisersoft.EasyRabbit.Extensions;
 using TechChallenge.CreateContact.Application.Dtos.Events;
 using TechChallenge.CreateContact.Domain.Entities;
 
-namespace TechChallenge.CreateContact.IntegrationTest.Api.Fixtures;
+namespace TechChallenge.CreateContact.IntegrationTest.Fixtures;
 
 public class WebApplicationFixture : WebApplicationFactory<Program>
 {

@@ -1,4 +1,4 @@
-﻿namespace TechChallenge.CreateContact.IntegrationTest.Api.Fixtures;
+﻿namespace TechChallenge.CreateContact.IntegrationTest.Fixtures;
 
 [CollectionDefinition(nameof(CreateContactApiCollectionFixture))]
 public class CreateContactApiCollectionFixture :

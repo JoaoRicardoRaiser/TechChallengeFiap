@@ -1,7 +1,7 @@
 ﻿using TechChallenge.CreateContact.Api.Dtos;
 using TechChallenge.CreateContact.Domain.Entities;
 
-namespace TechChallenge.CreateContact.IntegrationTest.Api.Fakes;
+namespace TechChallenge.CreateContact.IntegrationTest.Fakes;
 
 public static class ContactFake
 {
@@ -12,7 +12,7 @@ public static class ContactFake
             Id = Guid.NewGuid(),
             Name = name,
             Email = $"{name.Replace(" ", "").ToLower()}@mail.com",
-            Phone = "11987651234", 
+            Phone = "11987651234",
             PhoneAreaCode = 11
         };
 

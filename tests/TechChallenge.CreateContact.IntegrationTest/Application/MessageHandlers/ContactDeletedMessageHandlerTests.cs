@@ -1,11 +1,10 @@
 ﻿using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Raisersoft.EasyRabbit.Interfaces;
-using Raisersoft.EasyRabbit.Workers;
 using TechChallenge.CreateContact.Application.Dtos.Events;
 using TechChallenge.CreateContact.Domain.Entities;
-using TechChallenge.CreateContact.IntegrationTest.Api.Fakes;
-using TechChallenge.CreateContact.IntegrationTest.Api.Fixtures;
+using TechChallenge.CreateContact.IntegrationTest.Fakes;
+using TechChallenge.CreateContact.IntegrationTest.Fixtures;
 
 namespace TechChallenge.CreateContact.IntegrationTest.Application.MessageHandlers;
 
