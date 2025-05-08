@@ -58,14 +58,6 @@ stages:
           
           - publish: '$(Build.ArtifactStagingDirectory)'
             artifact: drop
-          
-          - task: Docker@2
-            displayName: Build and Publish image
-            inputs:
-              containerRegistry: 'Container Registry Service Connection (techchallenge)'
-              repository: 'pipeline-acr'
-              command: 'buildAndPush'
-              Dockerfile: '**/Dockerfile'
   
   - stage: 'Development'
     displayName: 'Deploy to the development environment'
