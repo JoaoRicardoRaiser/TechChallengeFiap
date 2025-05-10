@@ -61,7 +61,7 @@ public static class IServiceCollectionExtensions
     }
    
     private static void AddPublishers(this IServiceCollection services)
-        => services.AddPublisher<Contact>("ContactUpdated");
+        => services.AddPublisher<Contact>("ContactUpdated");//Criar UpdateEvent
 
     private static void AddConsumers(this IServiceCollection services)
     {
