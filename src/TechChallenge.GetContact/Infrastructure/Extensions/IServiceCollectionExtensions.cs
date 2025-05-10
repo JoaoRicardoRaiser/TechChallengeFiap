@@ -2,6 +2,7 @@
 using Raisersoft.EasyRabbit.Extensions;
 using Raisersoft.EasyRabbit.Interfaces;
 using Raisersoft.EasyRabbit.Services;
+using TechChallenge.GetContact.Application.Dtos.Events;
 using TechChallenge.UpdateContact.Application.Dtos.Events;
 using TechChallenge.UpdateContact.Domain.Entities;
 using TechChallenge.UpdateContact.Domain.Interfaces;
@@ -62,12 +63,13 @@ public static class IServiceCollectionExtensions
     }
    
     private static void AddPublishers(this IServiceCollection services)
-        => services.AddPublisher<Contact>("ContactUpdated");//Criar UpdateEvent
+        => services.AddPublisher<ContactRetrievedEventDto>("ContactRetrieved");
 
     private static void AddConsumers(this IServiceCollection services)
     {
         services.AddConsumer<ContactDeletedEventDto>("ContactDeleted");
         services.AddConsumer<ContactCreatedEventDto>("ContactCreated");
+        services.AddConsumer<ContactUpdatedEventDto>("ContactUpdated");
     }
 
     //private static IServiceCollection AddConsumer<T>(this IServiceCollection services, string consumerConfigKey)

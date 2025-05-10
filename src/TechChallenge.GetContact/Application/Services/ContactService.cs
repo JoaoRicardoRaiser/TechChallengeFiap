@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Raisersoft.EasyRabbit.Interfaces;
+using TechChallenge.GetContact.Application.Dtos.Events;
 using TechChallenge.UpdateContact.Application.Dtos;
 using TechChallenge.UpdateContact.Application.Dtos.Events;
 using TechChallenge.UpdateContact.Application.Interfaces;
@@ -16,6 +17,16 @@ public class ContactService(
     IMapper mapper,
     IMessagePublisherService<Contact> messagePublisher) : IContactService
 {
+    public async Task<IEnumerable<Contact>> GetAsync(int? phoneAreaCode)
+        => await contactRepository.GetAsync(
+            c => phoneAreaCode == null || c.PhoneAreaCode == phoneAreaCode,
+            [nameof(Contact.PhoneArea)]
+        );
+    
+    private async Task<Contact> GetContactSavedByIdAsync(Guid contactId)
+        => await contactRepository.SingleOrDefaultAsync(c => c.Id == contactId)
+        ?? throw new BusinessException($"Contact not exists. Id: {contactId}");
+
     public async Task CreateAsync(ContactCreatedEventDto dto)
     {
         var contact = mapper.Map<Contact>(dto);
@@ -25,7 +36,7 @@ public class ContactService(
         await contactRepository.SaveChangesAsync();
     }
 
-    public async Task UpdateAsync(UpdateContactDto dto)
+    public async Task UpdateAsync(ContactUpdatedEventDto dto)
     {
         ValidatePhoneAreaCodeExists(dto.Phone);
 
@@ -53,11 +64,6 @@ public class ContactService(
     {
         if (!phoneAreaCache.Exists(phoneDto.AreaCode))
             throw new BusinessException($"Phone area code not exists. Code: {phoneDto.AreaCode}");
-    }
-
-    private async Task<Contact> GetContactSavedByIdAsync(Guid contactId)
-        => await contactRepository.SingleOrDefaultAsync(c => c.Id == contactId)
-        ?? throw new BusinessException($"Contact not exists. Id: {contactId}");
-
+    }    
     
 }

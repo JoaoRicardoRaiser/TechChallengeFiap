@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using TechChallenge.UpdateContact.Api.Dtos;
-using TechChallenge.UpdateContact.Application.Dtos;
 using TechChallenge.UpdateContact.Application.Interfaces;
 
 
@@ -11,22 +9,11 @@ namespace TechChallenge.UpdateContact.Controllers;
 [Route("contacts")]
 public class ContactController(IContactService contactService, IMapper mapper) : Controller
 {
-    [HttpPut("{contactId}")]
-    public async Task<IActionResult> Put(Guid contactId, [FromBody] PutContactDto dto)
+    [HttpGet]
+    public async Task<IActionResult> Get([FromQuery] int? phoneAreaNumber)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-
-        var updateDto = new UpdateContactDto
-        {
-            ContactId = contactId,
-            Email = dto.Email!,
-            Phone = new PhoneDto { Number = dto.PhoneNumber! }
-        };
-
-        await contactService.UpdateAsync(updateDto);
-
-        return Accepted();
+        var contacts = await contactService.GetAsync(phoneAreaNumber);
+        return Ok(contacts);
     }
 
 }

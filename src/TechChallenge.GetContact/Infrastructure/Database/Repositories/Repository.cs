@@ -40,4 +40,11 @@ public class Repository<TEntity>(DbContext dbContext) : IRepository<TEntity> whe
 
         return query;
     }
+
+    public async Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> predicate, string[]? includeProperties = null)
+    {
+        var query = _dbSet.Where(predicate);
+        IncludeProperties(ref query, includeProperties);
+        return await query.ToListAsync();
+    }
 }
