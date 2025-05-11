@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TechChallenge.UpdateContact.Domain.Entities;
+using TechChallenge.GetContact.Domain.Entities;
 
-namespace TechChallenge.UpdateContact.Infrastructure.Database.Configurations;
+namespace TechChallenge.GetContact.Infrastructure.Database.Configurations;
 
 public class PhoneAreaConfiguration : IEntityTypeConfiguration<PhoneArea>
 {

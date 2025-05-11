@@ -1,4 +1,4 @@
-﻿namespace TechChallenge.UpdateContact.Application.Dtos.Configuration;
+﻿namespace TechChallenge.GetContact.Application.Dtos.Configuration;
 
 public class RabbitMqConfiguration
 {

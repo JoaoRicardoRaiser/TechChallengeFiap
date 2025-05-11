@@ -52,7 +52,7 @@ public static class IServiceCollectionExtensions
 
     public static IServiceCollection AddRabbitMq(this IServiceCollection services)
     {
-        services.AddSingleton<IRabbitMqService, RabbitMqService>();
+        services.AddEasyRabbitMq();
 
         services.AddPublishers();
 
@@ -74,17 +74,17 @@ public static class IServiceCollectionExtensions
     //{
     //    var serviceProvider = services.BuildServiceProvider();
 
-    //    services.AddSingleton<IMessageConsumerService<T>>(new MessageConsumerService<T>(serviceProvider.GetRequiredService<IServiceScopeFactory>(), consumerConfigKey));        
+    //    services.AddSingleton<IMessageConsumerService<T>>(new MessageConsumerService<T>(serviceProvider.GetRequiredService<IServiceScopeFactory>(), consumerConfigKey));
     //    services.AddHostedService<MessageConsumerWorker<T>>();
 
     //    return services;
     //}
 
     //private static IServiceCollection AddPublisher<T>(this IServiceCollection services, string publisherConfigKey)
-    //{        
+    //{
     //    services.AddSingleton<IMessagePublisherService<Contact>>(new PublisherService<Contact>(services, publisherConfigKey));
-       
+
     //    return services;
     //}
-    
+
 }

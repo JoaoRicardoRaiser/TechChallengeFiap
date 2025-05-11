@@ -1,4 +1,4 @@
-﻿namespace TechChallenge.UpdateContact.Domain.Exceptions;
+﻿namespace TechChallenge.GetContact.Domain.Exceptions;
 
 public class BusinessException(string message) : Exception(message)
 {

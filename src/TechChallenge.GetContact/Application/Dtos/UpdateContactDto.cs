@@ -1,4 +1,4 @@
-﻿namespace TechChallenge.UpdateContact.Application.Dtos
+﻿namespace TechChallenge.GetContact.Application.Dtos
 {
     public class UpdateContactDto
     {

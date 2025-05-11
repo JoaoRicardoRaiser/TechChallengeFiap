@@ -1,4 +1,4 @@
-﻿namespace TechChallenge.UpdateContact.Domain.Entities;
+﻿namespace TechChallenge.GetContact.Domain.Entities;
 
 public class PhoneArea: EntityBase
 {

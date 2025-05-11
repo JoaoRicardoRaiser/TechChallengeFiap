@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
-using TechChallenge.UpdateContact.Domain.Entities;
-using TechChallenge.UpdateContact.Domain.Interfaces;
+using TechChallenge.GetContact.Domain.Entities;
+using TechChallenge.GetContact.Domain.Interfaces;
 
-namespace TechChallenge.UpdateContact.Infrastructure.Database.Repositories;
+namespace TechChallenge.GetContact.Infrastructure.Database.Repositories;
 
 [ExcludeFromCodeCoverage]
 public class Repository<TEntity>(DbContext dbContext) : IRepository<TEntity> where TEntity : EntityBase

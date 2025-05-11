@@ -1,9 +1,7 @@
 ﻿using TechChallenge.GetContact.Application.Dtos.Events;
-using TechChallenge.UpdateContact.Application.Dtos;
-using TechChallenge.UpdateContact.Application.Dtos.Events;
-using TechChallenge.UpdateContact.Domain.Entities;
+using TechChallenge.GetContact.Domain.Entities;
 
-namespace TechChallenge.UpdateContact.Application.Interfaces;
+namespace TechChallenge.GetContact.Application.Interfaces;
 
 public interface IContactService
 {

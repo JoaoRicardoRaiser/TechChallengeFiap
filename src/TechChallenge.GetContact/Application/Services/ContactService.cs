@@ -1,15 +1,14 @@
 ﻿using AutoMapper;
 using Raisersoft.EasyRabbit.Interfaces;
+using TechChallenge.GetContact.Application.Dtos;
 using TechChallenge.GetContact.Application.Dtos.Events;
-using TechChallenge.UpdateContact.Application.Dtos;
-using TechChallenge.UpdateContact.Application.Dtos.Events;
-using TechChallenge.UpdateContact.Application.Interfaces;
-using TechChallenge.UpdateContact.Domain.Entities;
-using TechChallenge.UpdateContact.Domain.Exceptions;
-using TechChallenge.UpdateContact.Domain.Interfaces;
-using TechChallenge.UpdateContact.Infrastructure.Interfaces;
+using TechChallenge.GetContact.Application.Interfaces;
+using TechChallenge.GetContact.Domain.Entities;
+using TechChallenge.GetContact.Domain.Exceptions;
+using TechChallenge.GetContact.Domain.Interfaces;
+using TechChallenge.GetContact.Infrastructure.Interfaces;
 
-namespace TechChallenge.UpdateContact.Application.Services;
+namespace TechChallenge.GetContact.Application.Services;
 
 public class ContactService(
     IRepository<Contact> contactRepository,

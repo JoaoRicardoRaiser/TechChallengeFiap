@@ -1,4 +1,4 @@
-﻿using TechChallenge.UpdateContact.Application.Dtos;
+﻿using TechChallenge.GetContact.Application.Dtos;
 
 namespace TechChallenge.GetContact.Application.Dtos.Events
 {

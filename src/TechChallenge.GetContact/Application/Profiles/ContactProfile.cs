@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using TechChallenge.UpdateContact.Domain.Entities;
-using TechChallenge.UpdateContact.Application.Dtos;
-using TechChallenge.UpdateContact.Application.Dtos.Events;
+using TechChallenge.GetContact.Application.Dtos;
+using TechChallenge.GetContact.Application.Dtos.Events;
+using TechChallenge.GetContact.Domain.Entities;
 
-namespace TechChallenge.UpdateContact.Application.Profiles;
+namespace TechChallenge.GetContact.Application.Profiles;
 
 public class ContactProfile : Profile
 {

@@ -1,13 +1,11 @@
 ﻿using Raisersoft.EasyRabbit.Interfaces;
 using System.Diagnostics.CodeAnalysis;
 using TechChallenge.GetContact.Application.Dtos.Events;
+using TechChallenge.GetContact.Application.Interfaces;
 using TechChallenge.GetContact.Application.MessageHandlers;
-using TechChallenge.UpdateContact.Application.Dtos.Events;
-using TechChallenge.UpdateContact.Application.Interfaces;
-using TechChallenge.UpdateContact.Application.MessageHandlers;
-using TechChallenge.UpdateContact.Application.Services;
+using TechChallenge.GetContact.Application.Services;
 
-namespace TechChallenge.UpdateContact.Application.Extensions;
+namespace TechChallenge.GetContact.Application.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class IServiceCollectionExtensions
@@ -28,7 +26,7 @@ public static class IServiceCollectionExtensions
         services.AddScoped<IMessageHandler<ContactDeletedEventDto>, ContactDeletedMessageHandler>();
         services.AddScoped<IMessageHandler<ContactCreatedEventDto>, ContactCreatedMessageHandler>();
         services.AddScoped<IMessageHandler<ContactUpdatedEventDto>, ContactUpdatedMessageHandler>();
-
+        //services.AddScoped<IMessageHandler<Contact>, ContactMessageHandler>();
 
         return services;
     }    

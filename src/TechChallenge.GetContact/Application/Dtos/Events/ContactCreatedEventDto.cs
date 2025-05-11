@@ -1,4 +1,4 @@
-﻿namespace TechChallenge.UpdateContact.Application.Dtos.Events
+﻿namespace TechChallenge.GetContact.Application.Dtos.Events
 {
     public class ContactCreatedEventDto
     {

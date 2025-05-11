@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TechChallenge.UpdateContact.Infrastructure.Interfaces;
+using TechChallenge.GetContact.Infrastructure.Interfaces;
 
-namespace TechChallenge.UpdateContact.Infrastructure.Extensions;
+namespace TechChallenge.GetContact.Infrastructure.Extensions;
 
 public static class WebApplicationExtensions
 {

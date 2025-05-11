@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace TechChallenge.UpdateContact.Domain.Entities;
+namespace TechChallenge.GetContact.Domain.Entities;
 
 public class Contact: EntityBase 
 {

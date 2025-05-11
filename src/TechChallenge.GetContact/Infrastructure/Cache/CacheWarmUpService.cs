@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using TechChallenge.UpdateContact.Domain.Entities;
-using TechChallenge.UpdateContact.Domain.Interfaces;
-using TechChallenge.UpdateContact.Infrastructure.Interfaces;
+using TechChallenge.GetContact.Domain.Entities;
+using TechChallenge.GetContact.Domain.Interfaces;
+using TechChallenge.GetContact.Infrastructure.Interfaces;
 
-namespace TechChallenge.UpdateContact.Infrastructure.Cache;
+namespace TechChallenge.GetContact.Infrastructure.Cache;
 
 [ExcludeFromCodeCoverage]
 public class CacheWarmUpService(

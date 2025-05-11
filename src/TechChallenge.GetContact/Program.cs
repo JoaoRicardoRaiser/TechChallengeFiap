@@ -1,9 +1,9 @@
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Raisersoft.EasyRabbit.Interfaces;
-using TechChallenge.UpdateContact.Api.Extensions;
-using TechChallenge.UpdateContact.Application.Extensions;
-using TechChallenge.UpdateContact.Infrastructure.Extensions;
+using TechChallenge.GetContact.Api.Extensions;
+using TechChallenge.GetContact.Application.Extensions;
+using TechChallenge.GetContact.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

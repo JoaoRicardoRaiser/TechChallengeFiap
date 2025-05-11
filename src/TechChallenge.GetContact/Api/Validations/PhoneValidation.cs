@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TechChallenge.UpdateContact.Api.Validations;
+namespace TechChallenge.GetContact.Api.Validations;
 
 public class PhoneValidation : ValidationAttribute
 {

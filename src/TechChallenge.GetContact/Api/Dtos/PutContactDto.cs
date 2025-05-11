@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using TechChallenge.UpdateContact.Api.Validations;
+using TechChallenge.GetContact.Api.Validations;
 
-namespace TechChallenge.UpdateContact.Api.Dtos
+namespace TechChallenge.GetContact.Api.Dtos
 {
     public class PutContactDto
     {

@@ -1,17 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Raisersoft.EasyRabbit.Extensions;
-using Raisersoft.EasyRabbit.Interfaces;
-using Raisersoft.EasyRabbit.Services;
 using TechChallenge.GetContact.Application.Dtos.Events;
-using TechChallenge.UpdateContact.Application.Dtos.Events;
-using TechChallenge.UpdateContact.Domain.Entities;
-using TechChallenge.UpdateContact.Domain.Interfaces;
-using TechChallenge.UpdateContact.Infrastructure.Cache;
-using TechChallenge.UpdateContact.Infrastructure.Database;
-using TechChallenge.UpdateContact.Infrastructure.Database.Repositories;
-using TechChallenge.UpdateContact.Infrastructure.Interfaces;
+using TechChallenge.GetContact.Domain.Entities;
+using TechChallenge.GetContact.Domain.Interfaces;
+using TechChallenge.GetContact.Infrastructure.Cache;
+using TechChallenge.GetContact.Infrastructure.Database;
+using TechChallenge.GetContact.Infrastructure.Database.Repositories;
+using TechChallenge.GetContact.Infrastructure.Interfaces;
 
-namespace TechChallenge.UpdateContact.Infrastructure.Extensions;
+namespace TechChallenge.GetContact.Infrastructure.Extensions;
 
 public static class IServiceCollectionExtensions
 {
@@ -28,8 +25,8 @@ public static class IServiceCollectionExtensions
 
     private static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped<DbContext, UpdateContactDbContext>();
-        services.AddDbContext<UpdateContactDbContext>(
+        services.AddScoped<DbContext, GetContactDbContext>();
+        services.AddDbContext<GetContactDbContext>(
             options => options.UseNpgsql(configuration.GetConnectionString("Postgres"), 
             npgsqlOptionsAction => npgsqlOptionsAction.EnableRetryOnFailure(5, TimeSpan.FromSeconds(5), null)));
 
@@ -53,7 +50,7 @@ public static class IServiceCollectionExtensions
 
     public static IServiceCollection AddRabbitMq(this IServiceCollection services)
     {
-        services.AddSingleton<IRabbitMqService, RabbitMqService>();
+        services.AddEasyRabbitMq();
 
         services.AddPublishers();
 
@@ -63,7 +60,7 @@ public static class IServiceCollectionExtensions
     }
    
     private static void AddPublishers(this IServiceCollection services)
-        => services.AddPublisher<ContactRetrievedEventDto>("ContactRetrieved");
+        => services.AddPublisher<Contact>("ContactRetrieved");
 
     private static void AddConsumers(this IServiceCollection services)
     {
@@ -76,17 +73,17 @@ public static class IServiceCollectionExtensions
     //{
     //    var serviceProvider = services.BuildServiceProvider();
 
-    //    services.AddSingleton<IMessageConsumerService<T>>(new MessageConsumerService<T>(serviceProvider.GetRequiredService<IServiceScopeFactory>(), consumerConfigKey));        
+    //    services.AddSingleton<IMessageConsumerService<T>>(new MessageConsumerService<T>(serviceProvider.GetRequiredService<IServiceScopeFactory>(), consumerConfigKey));
     //    services.AddHostedService<MessageConsumerWorker<T>>();
 
     //    return services;
     //}
 
     //private static IServiceCollection AddPublisher<T>(this IServiceCollection services, string publisherConfigKey)
-    //{        
+    //{
     //    services.AddSingleton<IMessagePublisherService<Contact>>(new PublisherService<Contact>(services, publisherConfigKey));
-       
+
     //    return services;
     //}
-    
+
 }

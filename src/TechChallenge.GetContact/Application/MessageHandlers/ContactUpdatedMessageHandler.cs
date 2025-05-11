@@ -1,6 +1,6 @@
 ﻿using Raisersoft.EasyRabbit.Interfaces;
 using TechChallenge.GetContact.Application.Dtos.Events;
-using TechChallenge.UpdateContact.Application.Interfaces;
+using TechChallenge.GetContact.Application.Interfaces;
 
 namespace TechChallenge.GetContact.Application.MessageHandlers
 {
