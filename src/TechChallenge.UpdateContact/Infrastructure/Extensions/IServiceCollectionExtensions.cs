@@ -2,6 +2,7 @@
 using Raisersoft.EasyRabbit.Extensions;
 using Raisersoft.EasyRabbit.Interfaces;
 using Raisersoft.EasyRabbit.Services;
+using Raisersoft.EasyRabbit.Workers;
 using TechChallenge.UpdateContact.Application.Dtos.Events;
 using TechChallenge.UpdateContact.Domain.Entities;
 using TechChallenge.UpdateContact.Domain.Interfaces;
@@ -62,7 +63,7 @@ public static class IServiceCollectionExtensions
     }
    
     private static void AddPublishers(this IServiceCollection services)
-        => services.AddPublisher<Contact>("ContactUpdated");//Criar UpdateEvent
+        => services.AddPublisher<Contact>("ContactUpdated");//Criar ContactUpdatedEventDto
 
     private static void AddConsumers(this IServiceCollection services)
     {
@@ -70,21 +71,25 @@ public static class IServiceCollectionExtensions
         services.AddConsumer<ContactCreatedEventDto>("ContactCreated");
     }
 
-    //private static IServiceCollection AddConsumer<T>(this IServiceCollection services, string consumerConfigKey)
-    //{
-    //    var serviceProvider = services.BuildServiceProvider();
+    private static IServiceCollection AddConsumer<T>(this IServiceCollection services, string consumerConfigKey)
+    {
+        var serviceProvider = services.BuildServiceProvider();
 
-    //    services.AddSingleton<IMessageConsumerService<T>>(new MessageConsumerService<T>(serviceProvider.GetRequiredService<IServiceScopeFactory>(), consumerConfigKey));
-    //    services.AddHostedService<MessageConsumerWorker<T>>();
+        services.AddSingleton<IMessageConsumerService<T>>(new MessageConsumerService<T>(
+            serviceProvider.GetRequiredService<IConfiguration>(),
+            serviceProvider.GetRequiredService<IServiceScopeFactory>(),
+            serviceProvider.GetRequiredService<IRabbitMqService>(),
+            consumerConfigKey));
+        services.AddHostedService<MessageConsumerWorker<T>>();
 
-    //    return services;
-    //}
+        return services;
+    }
 
-    //private static IServiceCollection AddPublisher<T>(this IServiceCollection services, string publisherConfigKey)
-    //{
-    //    services.AddSingleton<IMessagePublisherService<Contact>>(new PublisherService<Contact>(services, publisherConfigKey));
+    private static IServiceCollection AddPublisher<T>(this IServiceCollection services, string publisherConfigKey)
+    {
+        services.AddSingleton<IMessagePublisherService<Contact>>(new PublisherService<Contact>(services, publisherConfigKey));
 
-    //    return services;
-    //}
+        return services;
+    }
 
 }
