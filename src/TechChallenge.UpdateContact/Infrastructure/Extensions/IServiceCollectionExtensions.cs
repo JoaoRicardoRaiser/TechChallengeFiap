@@ -87,7 +87,7 @@ public static class IServiceCollectionExtensions
 
     private static IServiceCollection AddPublisher<T>(this IServiceCollection services, string publisherConfigKey)
     {
-        services.AddSingleton<IMessagePublisherService<Contact>>(new PublisherService<Contact>(services, publisherConfigKey));
+        //services.AddSingleton<IMessagePublisherService<Contact>>(new PublisherService<Contact>(services, publisherConfigKey));
 
         return services;
     }

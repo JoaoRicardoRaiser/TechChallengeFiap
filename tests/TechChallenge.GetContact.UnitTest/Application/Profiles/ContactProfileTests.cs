@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using FluentAssertions;
-using TechChallenge.CreateContact.Application.Dtos;
-using TechChallenge.CreateContact.Application.Profiles;
-using TechChallenge.CreateContact.Domain.Entities;
+using TechChallenge.GetContact.Application.Dtos;
+using TechChallenge.GetContact.Application.Profiles;
+using TechChallenge.GetContact.Domain.Entities;
 
 namespace TechChallenge.Application.UnitTest.Profiles;
 

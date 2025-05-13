@@ -1,9 +1,9 @@
 ﻿using Moq;
-using TechChallenge.CreateContact.Application.Dtos.Events;
-using TechChallenge.CreateContact.Application.Interfaces;
-using TechChallenge.CreateContact.Application.MessageHandlers;
+using TechChallenge.UpdateContact.Application.Dtos.Events;
+using TechChallenge.UpdateContact.Application.Interfaces;
+using TechChallenge.UpdateContact.Application.MessageHandlers;
 
-namespace TechChallenge.CreateContact.UnitTest.Application.MessageHandlers;
+namespace TechChallenge.UpdateContact.UnitTest.Application.MessageHandlers;
 public class ContactDeletedMessageHandlerTests
 {
 
@@ -21,7 +21,7 @@ public class ContactDeletedMessageHandlerTests
         // Arrange
         var dto = new ContactDeletedEventDto
         {
-            ContactId = Guid.NewGuid(),
+            //ContactId = Guid.NewGuid(),
         };
 
         // Act

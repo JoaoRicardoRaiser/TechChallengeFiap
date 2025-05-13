@@ -16,11 +16,11 @@ public static class ContactFake
             PhoneAreaCode = 11
         };
 
-    public static PostContactDto NewPostDto()
-        => new()
-        {
-            Name = "King Green",
-            Email = "kinggreen@mail.com",
-            PhoneNumber = "47123459876"
-        };
+    //public static PostContactDto NewPostDto()
+    //    => new()
+    //    {
+    //        Name = "King Green",
+    //        Email = "kinggreen@mail.com",
+    //        PhoneNumber = "47123459876"
+    //    };
 }

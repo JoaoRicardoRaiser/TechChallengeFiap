@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Raisersoft.EasyRabbit.Services;
-using TechChallenge.CreateContact.IntegrationTest.Helpers;
+using TechChallenge.GetContact.IntegrationTest.Helpers;
 using Testcontainers.RabbitMq;
 
-namespace TechChallenge.CreateContact.IntegrationTest.Fixtures;
+namespace TechChallenge.GetContact.IntegrationTest.Fixtures;
 
 public class RabbitMqFixture
 {

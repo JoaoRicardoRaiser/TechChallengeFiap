@@ -1,6 +1,6 @@
-﻿using TechChallenge.CreateContact.Domain.Entities;
+﻿using TechChallenge.UpdateContact.Domain.Entities;
 
-namespace TechChallenge.CreateContact.Application.UnitTest.Fixtures;
+namespace TechChallenge.UpdateContact.Application.UnitTest.Fixtures;
 
 public static class ContactFake
 {
