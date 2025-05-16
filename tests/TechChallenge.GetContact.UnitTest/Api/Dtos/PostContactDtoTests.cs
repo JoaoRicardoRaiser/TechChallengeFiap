@@ -9,18 +9,18 @@ public class PostContactDtoTests
     public void PostContactDto_With_Valid_Data_Should_Passes_Validation()
     {
         // Arrange
-        //var dto = new PostContactDto
-        //{
-        //    Name = "John Doe",
-        //    Email = "johndoe@example.com",
-        //    PhoneNumber = "47123456789"
-        //};
+        var dto = new PostContactDto
+        {
+            Name = "John Doe",
+            Email = "johndoe@example.com",
+            PhoneNumber = "47123456789"
+        };
 
         // Act
-        // var validationResults = ValidateModel(dto);
+        var validationResults = ValidateModel(dto);
 
         // Assert
-        //Assert.Empty(validationResults);
+        Assert.Empty(validationResults);
     }
 
     [Theory]
@@ -38,33 +38,33 @@ public class PostContactDtoTests
     )
     {
         // Arrange
-        //var dto = new PostContactDto
-        //{
-        //    Name = name,
-        //    Email = email,
-        //    PhoneNumber = phoneNumber
-        //};
+        var dto = new PostContactDto
+        {
+            Name = name,
+            Email = email,
+            PhoneNumber = phoneNumber
+        };
 
         // Act
-        //var validationResults = ValidateModel(dto);
+        var validationResults = ValidateModel(dto);
 
         // Assert
-        //Assert.Contains(validationResults, v => v.ErrorMessage == expectedErrorMessage);
+        Assert.Contains(validationResults, v => v.ErrorMessage == expectedErrorMessage);
     }
 
     [Fact]
     public void PhoneAreaCode_Should_Returns_Correct_Value()
     {
         // Arrange
-        //var dto = new PostContactDto
-        //{
-        //    PhoneNumber = "47123456789"
-        //};
+        var dto = new PostContactDto
+        {
+            PhoneNumber = "47123456789"
+        };
 
         // Act
 
         // Assert
-        //Assert.Equal("47", dto.PhoneAreaCode);
+        Assert.Equal("47", dto.PhoneAreaCode);
     }
 
     private static List<ValidationResult> ValidateModel(object model)

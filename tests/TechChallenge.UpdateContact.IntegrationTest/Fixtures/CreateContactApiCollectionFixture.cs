@@ -1,7 +1,7 @@
 ﻿namespace TechChallenge.UpdateContact.IntegrationTest.Fixtures;
 
-[CollectionDefinition(nameof(CreateContactApiCollectionFixture))]
-public class CreateContactApiCollectionFixture :
+[CollectionDefinition(nameof(UpdateContactApiCollectionFixture))]
+public class UpdateContactApiCollectionFixture :
     ICollectionFixture<WebApplicationFixture>,
     ICollectionFixture<DatabaseFixture>,
     ICollectionFixture<RabbitMqFixture>

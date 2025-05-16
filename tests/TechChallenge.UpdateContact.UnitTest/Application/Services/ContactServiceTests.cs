@@ -33,32 +33,31 @@ public class ContactServiceTests
         );
     }
 
+    //[Fact]
+    //public async Task UpdateAsync_When_PhoneArea_Not_Exists_Should_Throw_BusinessException()
+    //{
+    //    // Arrange
+    //    var updateContactDto = new UpdateContactDto
+    //    {            
+    //        Email = "johndoe@email.com",
+    //        Phone = new PhoneDto { Number = "47123456789" }
+    //    };
+
+    //    // Act
+    //    var exception = await Assert.ThrowsAsync<BusinessException>(
+    //        async () => await _contactService.UpdateAsync(updateContactDto)
+    //    );
+
+    //    // Assert
+    //    exception.Message.Should().Be($"Phone area code not exists. Code: {updateContactDto.Phone}");
+
+    //    _contactRepositoryMock.Verify(cc => cc.AddAsync(It.IsAny<Contact>()), Times.Never);
+    //    _contactRepositoryMock.Verify(cc => cc.SaveChangesAsync(), Times.Never);
+    //    _messagePublisherMock.Verify(mp => mp.SendMessageAsync(It.IsAny<Contact>()), Times.Never);
+    //}
+
     [Fact]
-    public async Task CreateAsync_When_PhoneArea_Not_Exists_Should_Throw_BusinessException()
-    {
-        // Arrange
-        var createContactDto = new CreateContactDto
-        {
-            Name = "John Doe",
-            Email = "johndoe@email.com",
-            Phone = new PhoneDto { Number = "47123456789" }
-        };
-
-        // Act
-        //var exception = await Assert.ThrowsAsync<BusinessException>(
-        //    async () => await _contactService.CreateAsync(createContactDto)
-        //);
-
-        // Assert
-        //exception.Message.Should().Be($"Phone area code not exists. Code: {createContactDto.Phone.AreaCode}");
-
-        _contactRepositoryMock.Verify(cc => cc.AddAsync(It.IsAny<Contact>()), Times.Never);
-        _contactRepositoryMock.Verify(cc => cc.SaveChangesAsync(), Times.Never);
-        _messagePublisherMock.Verify(mp => mp.SendMessageAsync(It.IsAny<Contact>()), Times.Never);
-    }
-
-    [Fact]
-    public async Task CreateAsync_When_Contact_Alredy_Exists_Should_Throw_BusinessException()
+    public async Task UpdateAsync_When_Contact_Email_Doesnt_Exists_Should_Throw_BusinessException()
     {
         // Arrange
 
@@ -72,28 +71,27 @@ public class ContactServiceTests
             .Setup(cr => cr.SingleOrDefaultAsync(It.IsAny<Expression<Func<Contact, bool>>>(), It.IsAny<string[]?>()))
             .ReturnsAsync(contactSaved);
 
-        var createContactDto = new CreateContactDto
-        {
-            Name = "John Doe",
+        var updateContactDto = new UpdateContactDto
+        {            
             Email = "johndoe@email.com",
             Phone = new PhoneDto { Number = "47123456789" }
         };
 
         // Act
-        //var exception = await Assert.ThrowsAsync<BusinessException>(
-        //    async() => await _contactService.CreateAsync(createContactDto)
-        //);
+        var exception = await Assert.ThrowsAsync<BusinessException>(
+            async () => await _contactService.UpdateAsync(updateContactDto)
+        );
 
         // Assert
-        //exception.Message.Should().Be($"Contact with this name alredy exists. Name: {createContactDto.Name}");
-        
+        exception.Message.Should().Be($"Contact with this e-mail does not exists. Name: {updateContactDto.Email}");
+
         _contactRepositoryMock.Verify(cc => cc.AddAsync(It.IsAny<Contact>()), Times.Never);
-        _contactRepositoryMock.Verify(cc => cc.SaveChangesAsync(), Times.Never);
+        _contactRepositoryMock.Verify(cc => cc.SaveChangesAsync(), Times.Once);
         _messagePublisherMock.Verify(mp => mp.SendMessageAsync(It.IsAny<Contact>()), Times.Never);
     }
 
     [Fact]
-    public async Task CreateAsync_Should_Create_Contact_Correctly()
+    public async Task UpdateAsync_Should_Update_Contact_Correctly()
     {
         // Arrange
 
@@ -111,9 +109,8 @@ public class ContactServiceTests
             .Setup(pac => pac.GetByCode(It.Is<int>(x => x == 47)))
             .Returns(phoneArea);
 
-        var createContactDto = new CreateContactDto
-        {
-            Name = "John Doe",
+        var updateContactDto = new UpdateContactDto
+        {            
             Email = "johndoe@email.com",
             Phone = new PhoneDto { Number = "47123456789" }
         };
@@ -121,11 +118,11 @@ public class ContactServiceTests
         var contact = ContactFake.New("John Doe");
 
         _mapperMock
-            .Setup(m => m.Map<Contact>(createContactDto))
+            .Setup(m => m.Map<Contact>(updateContactDto))
             .Returns(contact);
 
         // Act
-        //await _contactService.CreateAsync(createContactDto);
+        await _contactService.UpdateAsync(updateContactDto);
 
         // Assert
         _contactRepositoryMock.Verify(cc => cc.AddAsync(contact), Times.Once);
@@ -141,7 +138,7 @@ public class ContactServiceTests
 
         var dto = new ContactDeletedEventDto
         {
-            //ContactId = contactSaved.Id
+            Id = contactSaved.Id
         };
 
         // Act
@@ -162,7 +159,7 @@ public class ContactServiceTests
 
         var dto = new ContactDeletedEventDto
         {
-            //ContactId = contactSaved.Id
+            Id = contactSaved.Id
         };
 
         _contactRepositoryMock

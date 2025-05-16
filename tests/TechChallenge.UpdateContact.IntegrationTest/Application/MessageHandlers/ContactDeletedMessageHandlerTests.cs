@@ -9,7 +9,7 @@ using TechChallenge.UpdateContact.IntegrationTest.Fixtures;
 namespace TechChallenge.UpdateContact.IntegrationTest.Application.MessageHandlers;
 
 
-[Collection(nameof(CreateContactApiCollectionFixture))]
+[Collection(nameof(UpdateContactApiCollectionFixture))]
 public class ContactDeletedMessageHandlerTests(WebApplicationFixture webApplicationFixture, DatabaseFixture databaseFixture, RabbitMqFixture rabbitMqFixture)
 {
 
@@ -19,11 +19,11 @@ public class ContactDeletedMessageHandlerTests(WebApplicationFixture webApplicat
         // Arrange
         var contactToSave = ContactFake.New("John");
 
-        //await databaseFixture.AddAsync(contactToSave);
+        await databaseFixture.AddAsync(contactToSave);
 
         var @event = new ContactDeletedEventDto
         {
-            //ContactId = contactToSave.Id
+            Id = contactToSave.Id
         };
 
         var messagePublisher = webApplicationFixture.Services.GetRequiredService<IMessagePublisherService<ContactDeletedEventDto>>();
@@ -39,7 +39,7 @@ public class ContactDeletedMessageHandlerTests(WebApplicationFixture webApplicat
         var messagesOnQueue = await rabbitMqFixture.CountMessageFromQueueAsync("cc_contact_deleted_test");
         messagesOnQueue.Should().Be(0);
 
-        //var contactSaved = await databaseFixture.SingleOrDefaultAsync<Contact>(x => x.Id == contactToSave.Id);
-        //contactSaved.Should().BeNull();
+        var contactSaved = await databaseFixture.SingleOrDefaultAsync<Contact>(x => x.Id == contactToSave.Id);
+        contactSaved.Should().BeNull();
     }
 }

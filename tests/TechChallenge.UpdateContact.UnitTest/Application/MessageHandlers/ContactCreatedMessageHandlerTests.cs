@@ -4,22 +4,22 @@ using TechChallenge.UpdateContact.Application.Interfaces;
 using TechChallenge.UpdateContact.Application.MessageHandlers;
 
 namespace TechChallenge.UpdateContact.UnitTest.Application.MessageHandlers;
-public class ContactDeletedMessageHandlerTests
+
+public class ContactCreatedMessageHandlerTests
 {
-
     private readonly Mock<IContactService> _contactServiceMock = new();
-    private readonly ContactDeletedMessageHandler _messageHandler;
+    private readonly ContactCreatedMessageHandler _messageHandler;
 
-    public ContactDeletedMessageHandlerTests()
+    public ContactCreatedMessageHandlerTests()
     {
-        _messageHandler = new ContactDeletedMessageHandler(_contactServiceMock.Object);
+        _messageHandler = new ContactCreatedMessageHandler(_contactServiceMock.Object);
     }
 
     [Fact]
-    public async Task Should_Delete_Contact_Sucessfully()
+    public async Task Should_Create_Contact_Sucessfully()
     {
         // Arrange
-        var dto = new ContactDeletedEventDto
+        var dto = new ContactCreatedEventDto
         {
             Id = Guid.NewGuid(),
         };
@@ -28,6 +28,7 @@ public class ContactDeletedMessageHandlerTests
         await _messageHandler.HandleAsync(dto);
 
         // Assert
-        _contactServiceMock.Verify(x => x.DeleteAsync(dto), Times.Once);
+        _contactServiceMock.Verify(x => x.CreateAsync(dto), Times.Once);
     }
 }
+

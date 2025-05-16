@@ -8,7 +8,7 @@ using TechChallenge.UpdateContact.IntegrationTest.Fixtures;
 
 namespace TechChallenge.UpdateContact.IntegrationTest.Api.Controllers;
 
-[Collection(nameof(CreateContactApiCollectionFixture))]
+[Collection(nameof(UpdateContactApiCollectionFixture))]
 public class ContactControllerTests(WebApplicationFixture webAppFixture, DatabaseFixture databaseFixture, RabbitMqFixture rabbitMqFixture)
 {
     private readonly HttpClient _httpClient = webAppFixture.CreateClient();
@@ -18,21 +18,21 @@ public class ContactControllerTests(WebApplicationFixture webAppFixture, Databas
     {
         // Arrange
         var contactSaved = ContactFake.New("Drew");
-        //await databaseFixture.AddAsync(contactSaved);
+        await databaseFixture.AddAsync(contactSaved);
 
-        //var dto = ContactFake.NewPutDto();
+        var dto = ContactFake.NewPutDto();
 
         // Act
-        //var result = await _httpClient.PutAsJsonAsync($"contacts/{contactSaved.Id}", dto);
-        //var responseContent = await result.Content.ReadAsStringAsync();
+        var result = await _httpClient.PutAsJsonAsync($"contacts/{contactSaved.Id}", dto);
+        var responseContent = await result.Content.ReadAsStringAsync();
 
         //Assert
-        //result.StatusCode.Should().Be(HttpStatusCode.Accepted);
+        result.StatusCode.Should().Be(HttpStatusCode.Accepted);
 
-        //var contactSavedUpdated = await databaseFixture.SingleOrDefaultAsync<Contact>(x => x.Id == contactSaved.Id);
-        //contactSavedUpdated.Should().NotBeNull();
-        //contactSavedUpdated!.Email.Should().Be(dto.Email);
-        //contactSavedUpdated!.Phone.Should().Be(dto.PhoneNumber);
+        var contactSavedUpdated = await databaseFixture.SingleOrDefaultAsync<Contact>(x => x.Id == contactSaved.Id);
+        contactSavedUpdated.Should().NotBeNull();
+        contactSavedUpdated!.Email.Should().Be(dto.Email);
+        contactSavedUpdated!.Phone.Should().Be(dto.PhoneNumber);
     }
 
     private EquivalencyAssertionOptions<Contact> ContactAssertConfiguration(EquivalencyAssertionOptions<Contact> config)

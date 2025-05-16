@@ -20,25 +20,23 @@ public class ContactControllerProfileTests
     public void PostContactDto_To_CreateContactDto_Should_Map_Correctly()
     {
         // Assert
-        //var postContactDto = new PostContactDto
-        //{
-        //    Email = "johndoe@email.com",
-        //    Name = "John Doe",
-        //    PhoneNumber = "47123456789"
-        //};
+        var postContactDto = new PutContactDto
+        {
+            Email = "johndoe@email.com",            
+            PhoneNumber = "47123456789"
+        };
 
-        //var expectedCreateContactDto = new CreateContactDto
-        //{
-        //    Email = postContactDto.Email,
-        //    Name = postContactDto.Name,
-        //    Phone = new PhoneDto { Number = postContactDto.PhoneNumber }
-        //};
+        var expectedCreateContactDto = new UpdateContactDto
+        {
+            Email = postContactDto.Email,           
+            Phone = new PhoneDto { Number = postContactDto.PhoneNumber }
+        };
 
         // Act
-        //var createContactDto = _mapper.Map<CreateContactDto>(postContactDto);
+        var createContactDto = _mapper.Map<UpdateContactDto>(postContactDto);
 
         // Assert
-        //createContactDto.Should().NotBeNull();
-        //createContactDto.Should().BeEquivalentTo(expectedCreateContactDto);
+        createContactDto.Should().NotBeNull();
+        createContactDto.Should().BeEquivalentTo(expectedCreateContactDto);
     }
 }

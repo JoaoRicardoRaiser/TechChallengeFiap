@@ -19,10 +19,10 @@ public class WebApplicationFixture : WebApplicationFactory<Program>
 
         builder.ConfigureServices(services =>
         {
-            services.AddPublisher<Contact>("ContactCreated");
+            services.AddPublisher<ContactCreatedEventDto>("ContactCreated");
             services.AddPublisher<ContactDeletedEventDto>("ContactDeleted");
 
-            services.AddConsumer<Contact>("ContactCreated");
+            services.AddConsumer<ContactCreatedEventDto>("ContactCreated");
             services.AddConsumer<ContactDeletedEventDto>("ContactDeleted");
 
             RemoveIHostServices(services);

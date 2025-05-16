@@ -21,39 +21,39 @@ public class DatabaseFixture : IDisposable
         _dbContainer.StartAsync().Wait();
 
 
-        //var dbContext = GetDbContext();
-        //dbContext.Database.MigrateAsync().Wait();
+        var dbContext = GetDbContext();
+        dbContext.Database.MigrateAsync().Wait();
     }
 
     public async Task AddAsync<Tentity>(Tentity[] entities)
     {
-        //var dbContext = GetDbContext();
-        //await dbContext.AddRangeAsync(entities);
-        //await dbContext.SaveChangesAsync();
+        var dbContext = GetDbContext();
+        await dbContext.AddRangeAsync(entities);
+        await dbContext.SaveChangesAsync();
     }
 
     public async Task AddAsync<Tentity>(Tentity entity)
     {
-        //var dbContext = GetDbContext();
-        //await dbContext.AddAsync(entity!);
-        //await dbContext.SaveChangesAsync();
+        var dbContext = GetDbContext();
+        await dbContext.AddAsync(entity!);
+        await dbContext.SaveChangesAsync();
     }
 
-    //public async Task<TEntity?> SingleOrDefaultAsync<TEntity>(Expression<Func<TEntity, bool>> predicate, string[]? includeProperties = null) where TEntity : EntityBase
-    //{
-    //    var set = GetDbContext().Set<TEntity>();
-    //    var query = set.Where(predicate);
-    //    query = IncludeProperties(query, includeProperties);
-    //    return await query.SingleOrDefaultAsync();
-    //}
+    public async Task<TEntity?> SingleOrDefaultAsync<TEntity>(Expression<Func<TEntity, bool>> predicate, string[]? includeProperties = null) where TEntity : EntityBase
+    {
+        var set = GetDbContext().Set<TEntity>();
+        var query = set.Where(predicate);
+        query = IncludeProperties(query, includeProperties);
+        return await query.SingleOrDefaultAsync();
+    }
 
-    //public DbContext GetDbContext()
-    //{
-    //    var dbContextOptionsBuilder = new DbContextOptionsBuilder()
-    //        .UseNpgsql(GetConnectionString());
+    public DbContext GetDbContext()
+    {
+        var dbContextOptionsBuilder = new DbContextOptionsBuilder()
+            .UseNpgsql(GetConnectionString());
 
-    //    //return new GetContactDbContext(dbContextOptionsBuilder.Options);
-    //}
+        return new GetContactDbContext(dbContextOptionsBuilder.Options);
+    }
 
     public string GetConnectionString()
         => _dbContainer.GetConnectionString();
