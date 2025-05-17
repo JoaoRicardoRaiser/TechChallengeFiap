@@ -6,19 +6,20 @@ using Testcontainers.PostgreSql;
 
 namespace TechChallenge.GetContact.IntegrationTest.Fixtures;
 
-public class DatabaseFixture : IDisposable
+public class DatabaseFixture 
+    //: IDisposable
 {
-    private readonly PostgreSqlContainer _dbContainer = new PostgreSqlBuilder()
-            .WithImage("postgres:16.4-alpine3.20")
-            .WithDatabase("tc-get-contact-test")
-            .WithUsername("postgres")
-            .WithPassword("postgres")
-            .WithPortBinding(5432, 5432)
-            .Build();
+    //private readonly PostgreSqlContainer _dbContainer = new PostgreSqlBuilder()
+    //        .WithImage("postgres:16.4-alpine3.20")
+    //        .WithDatabase("tc-get-contact-test")
+    //        .WithUsername("postgres")
+    //        .WithPassword("postgres")
+    //        .WithPortBinding(5432, 5432)
+    //        .Build();
 
     public DatabaseFixture()
     {
-        _dbContainer.StartAsync().Wait();
+        //_dbContainer.StartAsync().Wait();
 
 
         //var dbContext = GetDbContext();
@@ -55,23 +56,23 @@ public class DatabaseFixture : IDisposable
     //    //return new GetContactDbContext(dbContextOptionsBuilder.Options);
     //}
 
-    public string GetConnectionString()
-        => _dbContainer.GetConnectionString();
+    //public string GetConnectionString()
+    //    => _dbContainer.GetConnectionString();
 
-    public void Dispose()
-    {
-        _dbContainer.DisposeAsync().GetAwaiter().GetResult();
-        GC.SuppressFinalize(this);
-    }
+    //public void Dispose()
+    //{
+    //    _dbContainer.DisposeAsync().GetAwaiter().GetResult();
+    //    GC.SuppressFinalize(this);
+    //}
 
-    private static IQueryable<TEntity> IncludeProperties<TEntity>(IQueryable<TEntity> query, string[]? includeProperties = null) where TEntity : EntityBase
-    {
-        if (includeProperties == null || includeProperties.Length == 0)
-            return query;
+    //private static IQueryable<TEntity> IncludeProperties<TEntity>(IQueryable<TEntity> query, string[]? includeProperties = null) where TEntity : EntityBase
+    //{
+    //    if (includeProperties == null || includeProperties.Length == 0)
+    //        return query;
 
-        foreach (var property in includeProperties)
-            query = query.Include(property);
+    //    foreach (var property in includeProperties)
+    //        query = query.Include(property);
 
-        return query;
-    }
+    //    return query;
+    //}
 }

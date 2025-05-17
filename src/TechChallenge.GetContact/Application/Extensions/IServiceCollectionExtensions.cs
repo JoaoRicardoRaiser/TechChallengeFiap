@@ -26,7 +26,6 @@ public static class IServiceCollectionExtensions
         services.AddScoped<IMessageHandler<ContactDeletedEventDto>, ContactDeletedMessageHandler>();
         services.AddScoped<IMessageHandler<ContactCreatedEventDto>, ContactCreatedMessageHandler>();
         services.AddScoped<IMessageHandler<ContactUpdatedEventDto>, ContactUpdatedMessageHandler>();
-        //services.AddScoped<IMessageHandler<Contact>, ContactMessageHandler>();
 
         return services;
     }    

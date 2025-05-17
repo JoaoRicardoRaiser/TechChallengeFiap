@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using TechChallenge.UpdateContact.Application.Dtos.Configuration;
 
 namespace TechChallenge.UpdateContact.Api.Extensions;
 
@@ -14,8 +13,6 @@ public static class WebApplicationBuilderExtensions
             .AddEnvironmentVariables()
             .AddJsonFile(GetAppsettingsFileName())
             .AddUserSecrets(Assembly.GetExecutingAssembly());
-
-        builder.Services.Configure<RabbitMqConfiguration>(builder.Configuration.GetSection("RabbitMq"));
 
         return builder;
     }

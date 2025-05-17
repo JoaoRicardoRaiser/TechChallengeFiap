@@ -1,10 +1,10 @@
-﻿namespace TechChallenge.UpdateContact.IntegrationTest.Fixtures;
+﻿//namespace TechChallenge.UpdateContact.IntegrationTest.Fixtures;
 
-[CollectionDefinition(nameof(CreateContactApiCollectionFixture))]
-public class CreateContactApiCollectionFixture :
-    ICollectionFixture<WebApplicationFixture>,
-    ICollectionFixture<DatabaseFixture>,
-    ICollectionFixture<RabbitMqFixture>
-{
-}
+//[CollectionDefinition(nameof(CreateContactApiCollectionFixture))]
+//public class CreateContactApiCollectionFixture :
+//    ICollectionFixture<WebApplicationFixture>,
+//    ICollectionFixture<DatabaseFixture>,
+//    ICollectionFixture<RabbitMqFixture>
+//{
+//}
 

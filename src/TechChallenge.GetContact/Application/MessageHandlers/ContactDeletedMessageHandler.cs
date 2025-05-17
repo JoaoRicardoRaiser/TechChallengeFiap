@@ -7,5 +7,5 @@ namespace TechChallenge.GetContact.Application.MessageHandlers;
 public class ContactDeletedMessageHandler(IContactService contactService) : IMessageHandler<ContactDeletedEventDto>
 {
     public async Task HandleAsync(ContactDeletedEventDto message)
-    => await contactService.DeleteAsync(message);
+        => await contactService.DeleteAsync(message);
 }

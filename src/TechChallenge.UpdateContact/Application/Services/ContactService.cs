@@ -14,7 +14,7 @@ public class ContactService(
     IRepository<Contact> contactRepository,
     IPhoneAreaCache phoneAreaCache,
     IMapper mapper,
-    IMessagePublisherService<Contact> messagePublisher) : IContactService
+    IMessagePublisherService<ContactUpdatedEventDto> messagePublisher) : IContactService
 {
     public async Task CreateAsync(ContactCreatedEventDto dto)
     {
@@ -33,20 +33,22 @@ public class ContactService(
 
         contact.Email = dto.Email;
         contact.Phone = dto.Phone.Number;
-        contact.PhoneAreaCode = int.Parse(dto.Phone.Number[..2]);
+        contact.PhoneAreaCode = dto.Phone.AreaCode;
 
         await contactRepository.SaveChangesAsync();
-    }    
+
+        var @event = mapper.Map<ContactUpdatedEventDto>(contact);
+
+        await messagePublisher.SendMessageAsync(@event);
+    }
 
     public async Task DeleteAsync(ContactDeletedEventDto dto)
     {
-        var contactSaved = await GetContactSavedByIdAsync(dto.Id);
+        var contactSaved = await GetContactSavedByIdAsync(dto.ContactId);
 
         contactRepository.Delete(contactSaved);
 
         await contactRepository.SaveChangesAsync();
-
-        await messagePublisher.SendMessageAsync(contactSaved);
     }
 
     private void ValidatePhoneAreaCodeExists(PhoneDto phoneDto)
@@ -58,6 +60,4 @@ public class ContactService(
     private async Task<Contact> GetContactSavedByIdAsync(Guid contactId)
         => await contactRepository.SingleOrDefaultAsync(c => c.Id == contactId)
         ?? throw new BusinessException($"Contact not exists. Id: {contactId}");
-
-    
 }

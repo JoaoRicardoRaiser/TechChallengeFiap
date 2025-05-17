@@ -1,7 +1,4 @@
-﻿using TechChallenge.GetContact.Api.Dtos;
-using TechChallenge.GetContact.Domain.Entities;
-
-namespace TechChallenge.GetContact.IntegrationTest.Fakes;
+﻿namespace TechChallenge.GetContact.IntegrationTest.Fakes;
 
 public static class ContactFake
 {

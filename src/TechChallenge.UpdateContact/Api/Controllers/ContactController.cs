@@ -4,7 +4,6 @@ using TechChallenge.UpdateContact.Api.Dtos;
 using TechChallenge.UpdateContact.Application.Dtos;
 using TechChallenge.UpdateContact.Application.Interfaces;
 
-
 namespace TechChallenge.UpdateContact.Controllers;
 
 [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest)]
@@ -17,16 +16,11 @@ public class ContactController(IContactService contactService, IMapper mapper) :
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        var updateDto = new UpdateContactDto
-        {
-            ContactId = contactId,
-            Email = dto.Email!,
-            Phone = new PhoneDto { Number = dto.PhoneNumber! }
-        };
+        var updateDto = mapper.Map<UpdateContactDto>(dto);
+        updateDto.ContactId = contactId;
 
         await contactService.UpdateAsync(updateDto);
 
         return Accepted();
     }
-
 }

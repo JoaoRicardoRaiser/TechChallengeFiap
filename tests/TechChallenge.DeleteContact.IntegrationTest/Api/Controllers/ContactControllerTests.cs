@@ -30,7 +30,7 @@ public class ContactControllerTests(WebApplicationFixture webAppFixture, Databas
 
         contactSaved!.Deleted.Should().BeTrue();
 
-        var messageOnQueue = await rabbitMqFixture.GetMessageFromQueueAsync<ContactDeletedEventDto>("dc_contact_deleted");
+        var messageOnQueue = await rabbitMqFixture.GetMessageFromQueueAsync<ContactDeletedEventDto>("dc_contact_deleted_test");
 
         messageOnQueue!.ContactId.Should().Be(contact.Id);
 

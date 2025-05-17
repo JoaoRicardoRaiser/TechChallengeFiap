@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using TechChallenge.GetContact.Api.Dtos;
 
 namespace TechChallenge.GetContact.UnitTest.Api.Dtos;
 

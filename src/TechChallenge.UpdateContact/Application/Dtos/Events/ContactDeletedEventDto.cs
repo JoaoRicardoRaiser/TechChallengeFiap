@@ -2,5 +2,5 @@
 
 public class ContactDeletedEventDto
 {
-    public Guid Id { get; set; }
+    public Guid ContactId { get; set; }
 }
