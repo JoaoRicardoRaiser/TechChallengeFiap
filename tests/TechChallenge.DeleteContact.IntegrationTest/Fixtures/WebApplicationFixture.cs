@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Raisersoft.EasyRabbit.Extensions;
 using TechChallenge.DeleteContact.Application.Dtos.Events;
-using TechChallenge.DeleteContact.Domain.Entities;
 
 namespace TechChallenge.DeleteContact.IntegrationTest.Fixtures;
 
@@ -19,10 +18,12 @@ public class WebApplicationFixture : WebApplicationFactory<Program>
 
         builder.ConfigureServices(services =>
         {
-            services.AddPublisher<Contact>("ContactCreated");
+            services.AddPublisher<ContactCreatedEventDto>("ContactCreated");
+            services.AddPublisher<ContactUpdatedEventDto>("ContactUpdated");
             services.AddPublisher<ContactCreatedEventDto>("ContactDeleted");
 
-            services.AddConsumer<Contact>("ContactCreated");
+            services.AddConsumer<ContactCreatedEventDto>("ContactCreated");
+            services.AddConsumer<ContactUpdatedEventDto>("ContactUpdated");
             services.AddConsumer<ContactCreatedEventDto>("ContactDeleted");
 
             RemoveIHostServices(services);

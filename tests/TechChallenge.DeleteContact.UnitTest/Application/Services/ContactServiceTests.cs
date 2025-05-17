@@ -102,4 +102,57 @@ public class ContactServiceTests
 
         contactSaved.Deleted.Should().BeTrue();
     }
+
+    [Fact]
+    public async Task UpdateAsync_Shouldnt_Delete_When_Contact_Not_Exists()
+    {
+        // Arrange
+        var dto = new ContactUpdatedEventDto
+        {
+            ContactId = Guid.NewGuid(),
+            Email = "teste@mail.com",
+            Phone = "11985242352",
+            PhoneAreaCode = 11
+        };
+
+        // Act
+        var exception = await Assert.ThrowsAsync<BusinessException>(async () => await _contactService.UpdateAsync(dto));
+
+        // Assert
+        exception.Message.Should().Be($"Contact not exists. Id: {dto.ContactId}");
+    }
+
+    [Fact]
+    public async Task UpdateAsync_Should_Update_Contact_Correctly()
+    {
+        // Arrange
+        var contactSaved = new Contact
+        {
+            Id = Guid.NewGuid(),
+            Email = "teste@mail.com",
+            Name = "Test",
+            Phone = "47854214154",
+            PhoneAreaCode = 47,
+            Deleted = false
+        };
+
+        var dto = new ContactUpdatedEventDto
+        {
+            ContactId = Guid.NewGuid(),
+            Email = "mailupdated@test.com",
+            Phone = "1186542415",
+            PhoneAreaCode = 11
+        };
+
+        _contactRepositoryMock
+            .Setup(r => r.SingleOrDefaultAsync(It.IsAny<Expression<Func<Contact, bool>>>(), It.IsAny<string[]?>()))
+            .ReturnsAsync(contactSaved);
+
+        // Act
+        await _contactService.UpdateAsync(dto);
+
+        // Assert
+        _mapperMock.Verify(m => m.Map(dto, contactSaved), Times.Once);
+        _contactRepositoryMock.Verify(cc => cc.SaveChangesAsync(), Times.Once);
+    }
 }

@@ -66,7 +66,37 @@ services:
       postgres:
           condition: service_healthy
       rabbitMq:
-          condition: service_healthy         
+          condition: service_healthy    
+                         
+  update-contact-app:
+    build: src/TechChallenge.UpdateContact
+    container_name: update-contact-app
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+    ports:
+      - "8082:8080"
+    networks:
+      - tech_challenge_network
+    depends_on:
+      postgres:
+          condition: service_healthy
+      rabbitMq:
+          condition: service_healthy 
+            
+  get-contact-app:
+    build: src/TechChallenge.GetContact
+    container_name: get-contact-app
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+    ports:
+      - "8083:8080"
+    networks:
+      - tech_challenge_network
+    depends_on:
+      postgres:
+          condition: service_healthy
+      rabbitMq:
+          condition: service_healthy
 
 #  prometheus:
 #    image: prom/prometheus:latest

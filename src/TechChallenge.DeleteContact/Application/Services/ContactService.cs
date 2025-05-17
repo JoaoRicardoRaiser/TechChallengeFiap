@@ -22,6 +22,15 @@ public class ContactService(
         await contactRepository.SaveChangesAsync();
     }
 
+    public async Task UpdateAsync(ContactUpdatedEventDto dto)
+    {
+        var contactSaved = await GetContactSavedByIdAsync(dto.ContactId);
+
+        mapper.Map(dto, contactSaved);
+
+        await contactRepository.SaveChangesAsync();
+    }
+
     public async Task DeleteAsync(Guid contactId)
     {
         var contactSaved = await GetContactSavedByIdAsync(contactId);
@@ -33,7 +42,6 @@ public class ContactService(
         var @event = new ContactDeletedEventDto { ContactId = contactSaved.Id };
         await messagePublisher.SendMessageAsync(@event);
     }
-
 
     private async Task<Contact> GetContactSavedByIdAsync(Guid contactId)
         => await contactRepository.SingleOrDefaultAsync(c => c.Id == contactId)
