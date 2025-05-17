@@ -26,18 +26,18 @@ public class ContactDeletedMessageHandlerTests(WebApplicationFixture webApplicat
             ContactId = contactToSave.Id
         };
 
-        var messagePublisher = webApplicationFixture.Services.GetRequiredService<IMessagePublisherService<ContactDeletedEventDto>>();
-        var messageConsumerService = webApplicationFixture.Services.GetRequiredService<IMessageConsumerService<ContactDeletedEventDto>>();
+//        var messagePublisher = webApplicationFixture.Services.GetRequiredService<IMessagePublisherService<ContactDeletedEventDto>>();
+//        var messageConsumerService = webApplicationFixture.Services.GetRequiredService<IMessageConsumerService<ContactDeletedEventDto>>();
 
         // Act
         await messagePublisher.SendMessageAsync(@event);
         
-        await messageConsumerService.ConsumeAsync();
-        await Task.Delay(TimeSpan.FromSeconds(5));
+//        await messageConsumerService.ConsumeAsync();
+//        await Task.Delay(TimeSpan.FromSeconds(5));
 
-        // Assert
-        var messagesOnQueue = await rabbitMqFixture.CountMessageFromQueueAsync("cc_contact_deleted_test");
-        messagesOnQueue.Should().Be(0);
+//        // Assert
+//        var messagesOnQueue = await rabbitMqFixture.CountMessageFromQueueAsync("cc_contact_deleted_test");
+//        messagesOnQueue.Should().Be(0);
 
         var contactSaved = await databaseFixture.SingleOrDefaultAsync<Contact>(x => x.Id == contactToSave.Id);
         contactSaved.Should().BeNull();

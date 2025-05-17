@@ -2,11 +2,10 @@
 using TechChallenge.GetContact.Application.Dtos.Events;
 using TechChallenge.GetContact.Application.Interfaces;
 
-namespace TechChallenge.GetContact.Application.MessageHandlers
+namespace TechChallenge.GetContact.Application.MessageHandlers;
+
+public class ContactUpdatedMessageHandler(IContactService contactService) : IMessageHandler<ContactUpdatedEventDto>
 {
-    public class ContactUpdatedMessageHandler(IContactService contactService) : IMessageHandler<ContactUpdatedEventDto>
-    {
-        public async Task HandleAsync(ContactUpdatedEventDto message)
-            => await contactService.UpdateAsync(message);
-    }
+    public async Task HandleAsync(ContactUpdatedEventDto message)
+        => await contactService.UpdateAsync(message);
 }

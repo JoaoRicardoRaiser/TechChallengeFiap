@@ -1,10 +1,5 @@
 ﻿using AutoMapper;
-using FluentAssertions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Moq;
-using TechChallenge.GetContact.Api.Dtos;
-using TechChallenge.GetContact.Application.Dtos;
 using TechChallenge.GetContact.Application.Interfaces;
 using TechChallenge.GetContact.Controllers;
 

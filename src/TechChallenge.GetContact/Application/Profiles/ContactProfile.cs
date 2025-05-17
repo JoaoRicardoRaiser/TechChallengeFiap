@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using TechChallenge.GetContact.Application.Dtos;
 using TechChallenge.GetContact.Application.Dtos.Events;
 using TechChallenge.GetContact.Domain.Entities;
 
@@ -14,11 +13,7 @@ public class ContactProfile : Profile
     }
 
     private void UpdateContactMapping()
-    {
-        CreateMap<UpdateContactDto, Contact>()
-            .ForMember(dest => dest.PhoneAreaCode, options => options.MapFrom(src => src.Phone.AreaCode))
-            .ForMember(dest => dest.Phone, options => options.MapFrom(src => src.Phone.Number));
-    }
+        => CreateMap<ContactUpdatedEventDto, Contact>();
 
     private void CreateContactEventMapping()
     {

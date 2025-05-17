@@ -18,10 +18,11 @@ public class ContactProfile : Profile
         CreateMap<UpdateContactDto, Contact>()
             .ForMember(dest => dest.PhoneAreaCode, options => options.MapFrom(src => src.Phone.AreaCode))
             .ForMember(dest => dest.Phone, options => options.MapFrom(src => src.Phone.Number));
+
+        CreateMap<Contact, ContactUpdatedEventDto>()
+            .ForMember(dest => dest.ContactId, options => options.MapFrom(c => c.Id));
     }
 
     private void CreateContactEventMapping()
-    {
-        CreateMap<ContactCreatedEventDto, Contact>();            
-    }
+        => CreateMap<ContactCreatedEventDto, Contact>();
 }

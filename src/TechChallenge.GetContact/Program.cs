@@ -45,7 +45,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.ApplyMigrations();
-await app.WarmUpCache();
 
 app.Run();
 

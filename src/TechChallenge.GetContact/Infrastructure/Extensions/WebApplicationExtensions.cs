@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TechChallenge.GetContact.Infrastructure.Interfaces;
 
 namespace TechChallenge.GetContact.Infrastructure.Extensions;
 
@@ -19,13 +18,5 @@ public static class WebApplicationExtensions
         }
         else
             logger.LogInformation("Database alredy updated. Migrations not applied");
-    }
-
-    public static async Task WarmUpCache(this WebApplication webApplication)
-    {
-        using var scope = webApplication.Services.CreateScope();
-        var cacheWarmUpCache = scope.ServiceProvider.GetRequiredService<ICacheWarmUpService>();
-
-        await cacheWarmUpCache.WarmUp();
     }
 }

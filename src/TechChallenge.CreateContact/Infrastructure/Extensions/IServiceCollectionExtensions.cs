@@ -60,8 +60,11 @@ public static class IServiceCollectionExtensions
     }
 
     private static void AddPublishers(this IServiceCollection services)
-        => services.AddPublisher<Contact>("ContactCreated");
+        => services.AddPublisher<ContactCreatedEventDto>("ContactCreated");
 
     private static void AddConsumers(this IServiceCollection services)
-        => services.AddConsumer<ContactDeletedEventDto>("ContactDeleted");
+    {
+        services.AddConsumer<ContactUpdatedEventDto>("ContactUpdated");
+        services.AddConsumer<ContactDeletedEventDto>("ContactDeleted");
+    }
 }

@@ -1,8 +1,8 @@
-﻿namespace TechChallenge.GetContact.Application.Dtos.Events;
+﻿namespace TechChallenge.CreateContact.Application.Dtos.Events;
 
-public class ContactUpdatedEventDto
+public class ContactCreatedEventDto
 {
-    public Guid ContactId { get; set; }
+    public Guid Id { get; set; }
     public string Name { get; set; } = default!;
     public string Phone { get; set; } = default!;
     public string Email { get; set; } = default!;

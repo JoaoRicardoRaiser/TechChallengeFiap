@@ -9,5 +9,6 @@ public class ContactProfile : Profile
     public ContactProfile()
     {
         CreateMap<ContactCreatedEventDto, Contact>();
+        CreateMap<ContactUpdatedEventDto, Contact>();
     }
 }

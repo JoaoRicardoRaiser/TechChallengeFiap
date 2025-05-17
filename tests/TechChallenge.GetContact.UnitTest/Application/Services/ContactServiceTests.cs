@@ -1,24 +1,16 @@
 ﻿using AutoMapper;
-using FluentAssertions;
 using Moq;
 using Raisersoft.EasyRabbit.Interfaces;
-using System.Linq.Expressions;
-using TechChallenge.GetContact.Application.Dtos;
-using TechChallenge.GetContact.Application.Dtos.Events;
 using TechChallenge.GetContact.Application.Interfaces;
-using TechChallenge.GetContact.Application.Services;
 using TechChallenge.GetContact.Application.UnitTest.Fixtures;
 using TechChallenge.GetContact.Domain.Entities;
-using TechChallenge.GetContact.Domain.Exceptions;
 using TechChallenge.GetContact.Domain.Interfaces;
-using TechChallenge.GetContact.Infrastructure.Interfaces;
 
 namespace TechChallenge.GetContact.UnitTest.Application.Services;
 
 public class ContactServiceTests
 {
     private readonly Mock<IRepository<Contact>> _contactRepositoryMock = new();
-    private readonly Mock<IPhoneAreaCache> _phoneAreaCacheMock = new();
     private readonly Mock<IMapper> _mapperMock = new();
     private readonly Mock<IMessagePublisherService<Contact>> _messagePublisherMock = new();
     private readonly IContactService _contactService;

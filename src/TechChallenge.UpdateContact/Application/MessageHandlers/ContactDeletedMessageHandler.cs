@@ -6,11 +6,6 @@ namespace TechChallenge.UpdateContact.Application.MessageHandlers;
 
 public class ContactDeletedMessageHandler(IContactService contactService) : IMessageHandler<ContactDeletedEventDto>
 {
-    public async Task Handle(ContactDeletedEventDto message)
+    public async Task HandleAsync(ContactDeletedEventDto message)
         => await contactService.DeleteAsync(message);
-
-    public Task HandleAsync(ContactDeletedEventDto message)
-    {
-        throw new NotImplementedException();
-    }
 }
