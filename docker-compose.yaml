@@ -98,27 +98,30 @@ services:
       rabbitMq:
           condition: service_healthy
 
-#  prometheus:
-#    image: prom/prometheus:latest
-#    container_name: prometheus
-#    volumes:
-#      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-#    ports:
-#      - "9090:9090"
-#    networks:
-#      - tech_challenge_network
-#    depends_on:
-#      - app
-#
-#  grafana:
-#    image: grafana/grafana:latest
-#    container_name: grafana
-#    ports:
-#      - "3000:3000"
-#    networks:
-#      - tech_challenge_network
-#    depends_on:
-#      - prometheus
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - tech_challenge_network
+    depends_on:
+      - create-contact-app
+      - delete-contact-app
+      - update-contact-app
+      - get-contact-app
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - tech_challenge_network
+    depends_on:
+      - prometheus
 
 networks:
   tech_challenge_network:

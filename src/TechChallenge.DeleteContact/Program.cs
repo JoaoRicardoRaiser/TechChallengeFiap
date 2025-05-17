@@ -1,5 +1,6 @@
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Prometheus;
 using Raisersoft.EasyRabbit.Interfaces;
 using TechChallenge.DeleteContact.Api.Extensions;
 using TechChallenge.DeleteContact.Application.Extensions;
@@ -36,6 +37,9 @@ app.MapHealthChecks("/health", new HealthCheckOptions
 // Configure the HTTP request pipeline.
 app.UseSwagger();
 app.UseSwaggerUI();
+
+app.UseHttpMetrics();
+app.MapMetrics();
 
 app.UseHttpsRedirection();
 
