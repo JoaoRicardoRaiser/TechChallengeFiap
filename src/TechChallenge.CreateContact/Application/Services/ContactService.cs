@@ -14,7 +14,7 @@ public class ContactService(
     IRepository<Contact> contactRepository,
     IPhoneAreaCache phoneAreaCache,
     IMapper mapper,
-    IMessagePublisherService<Contact> messagePublisher) : IContactService
+    IMessagePublisherService<ContactCreatedEventDto> messagePublisher) : IContactService
 {
     public async Task CreateAsync(CreateContactDto dto)
     {
@@ -26,8 +26,19 @@ public class ContactService(
         await contactRepository.AddAsync(contact);
 
         await contactRepository.SaveChangesAsync();
+        
+        var @event = mapper.Map<ContactCreatedEventDto>(contact);
 
-        await messagePublisher.SendMessageAsync(contact);
+        await messagePublisher.SendMessageAsync(@event);
+    }
+
+    public async Task UpdateAsync(ContactUpdatedEventDto dto)
+    {
+        var contactSaved = await GetContactSavedByIdAsync(dto.ContactId);
+
+        mapper.Map(dto, contactSaved);
+
+        await contactRepository.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(ContactDeletedEventDto dto)

@@ -44,7 +44,10 @@ public static class IServiceCollectionExtensions
     }
 
     private static void AddConsumers(this IServiceCollection services)
-        => services.AddConsumer<ContactCreatedEventDto>("ContactCreated");
+    {
+        services.AddConsumer<ContactCreatedEventDto>("ContactCreated");
+        services.AddConsumer<ContactUpdatedEventDto>("ContactUpdated");
+    }
 
     private static void AddPublishers(this IServiceCollection services)
         => services.AddPublisher<ContactDeletedEventDto>("ContactDeleted");

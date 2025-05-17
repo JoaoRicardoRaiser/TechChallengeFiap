@@ -35,7 +35,7 @@ public class ContactCreatedMessageHandlerTests(WebApplicationFixture webApplicat
         await Task.Delay(TimeSpan.FromSeconds(5));
 
         // Assert
-        var messagesOnQueue = await rabbitMqFixture.CountMessageFromQueueAsync("dc_contact_created");
+        var messagesOnQueue = await rabbitMqFixture.CountMessageFromQueueAsync("dc_contact_created_test");
         messagesOnQueue.Should().Be(0);
 
         var expectedSavedContact = new Contact
