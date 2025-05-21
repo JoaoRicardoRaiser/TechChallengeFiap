@@ -2,7 +2,22 @@ global:
   scrape_interval: 5s
 
 scrape_configs:
-  - job_name: 'app'
+  - job_name: 'create-contact-app'
     metrics_path: '/metrics'
     static_configs:
-      - targets: ['app:8080']
+      - targets: ['create-contact-app:8080']
+      
+  - job_name: 'delete-contact-app'
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['delete-contact-app:8080']
+      
+  - job_name: 'update-contact-app'
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['update-contact-app:8080']
+      
+  - job_name: 'get-contact-app'
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['get-contact-app:8080']

@@ -1,46 +1,46 @@
-﻿//using Newtonsoft.Json;
-//using Raisersoft.EasyRabbit.Services;
-//using TechChallenge.UpdateContact.IntegrationTest.Helpers;
-//using Testcontainers.RabbitMq;
+﻿using Newtonsoft.Json;
+using Raisersoft.EasyRabbit.Services;
+using TechChallenge.UpdateContact.IntegrationTest.Helpers;
+using Testcontainers.RabbitMq;
 
-//namespace TechChallenge.UpdateContact.IntegrationTest.Fixtures;
+namespace TechChallenge.UpdateContact.IntegrationTest.Fixtures;
 
-//public class RabbitMqFixture
-//{
-//    private readonly RabbitMqContainer _dbContainer = new RabbitMqBuilder()
-//            .WithImage("rabbitmq:3-management")
-//            .WithUsername("guest")
-//            .WithPassword("guest")
-//            .WithPortBinding(15672, 15672)
-//            .WithPortBinding(5672, 5672)
-//            .Build();
+public class RabbitMqFixture
+{
+    private readonly RabbitMqContainer _dbContainer = new RabbitMqBuilder()
+            .WithImage("rabbitmq:3-management")
+            .WithUsername("guest")
+            .WithPassword("guest")
+            .WithPortBinding(48905, 15672)
+            .WithPortBinding(8905, 5672)
+            .Build();
 
-//    public readonly RabbitMqService RabbitMqService;
+    public readonly RabbitMqService RabbitMqService;
 
-//    public RabbitMqFixture()
-//    {
-//        _dbContainer.StartAsync().Wait();
-//        RabbitMqService = new RabbitMqService(ConfigurationHelper.GetConfiguration());
-//    }
+    public RabbitMqFixture()
+    {
+        _dbContainer.StartAsync().Wait();
+        RabbitMqService = new RabbitMqService(ConfigurationHelper.GetConfiguration());
+    }
 
-//    public async Task<T?> GetMessageFromQueueAsync<T>(string queueName)
-//    {
-//        var channel = await RabbitMqService.CreateChannelAsync();
+    public async Task<T?> GetMessageFromQueueAsync<T>(string queueName)
+    {
+        var channel = await RabbitMqService.CreateChannelAsync();
 
-//        var result = await channel.BasicGetAsync(queueName, false);
+        var result = await channel.BasicGetAsync(queueName, false);
 
-//        var body = (result?.Body.ToArray()) ?? throw new Exception($"Has error on get message from queue: {queueName}");
-//        var text = System.Text.Encoding.UTF8.GetString(body);
+        var body = (result?.Body.ToArray()) ?? throw new Exception($"Has error on get message from queue: {queueName}");
+        var text = System.Text.Encoding.UTF8.GetString(body);
 
-//        return JsonConvert.DeserializeObject<T>(text);
-//    }
+        return JsonConvert.DeserializeObject<T>(text);
+    }
 
-//    public async Task<int> CountMessageFromQueueAsync(string queueName)
-//    {
-//        var channel = await RabbitMqService.CreateChannelAsync();
+    public async Task<int> CountMessageFromQueueAsync(string queueName)
+    {
+        var channel = await RabbitMqService.CreateChannelAsync();
 
-//        var count = await channel.MessageCountAsync(queueName);
+        var count = await channel.MessageCountAsync(queueName);
 
-//        return (int)count;
-//    }
-//}
+        return (int)count;
+    }
+}

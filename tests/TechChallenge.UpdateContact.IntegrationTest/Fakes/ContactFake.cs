@@ -5,7 +5,6 @@ namespace TechChallenge.UpdateContact.IntegrationTest.Fakes;
 
 public static class ContactFake
 {
-
     public static Contact New(string name)
         => new()
         {
@@ -16,11 +15,10 @@ public static class ContactFake
             PhoneAreaCode = 11
         };
 
-    //public static PostContactDto NewPostDto()
-    //    => new()
-    //    {
-    //        Name = "King Green",
-    //        Email = "kinggreen@mail.com",
-    //        PhoneNumber = "47123459876"
-    //    };
+    public static PutContactDto NewPutDto()
+        => new()
+        {
+            Email = "drewdoberupdated@mail.com",
+            PhoneNumber = "71985231457"
+        };
 }

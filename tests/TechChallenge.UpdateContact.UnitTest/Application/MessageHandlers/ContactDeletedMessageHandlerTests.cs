@@ -6,7 +6,6 @@ using TechChallenge.UpdateContact.Application.MessageHandlers;
 namespace TechChallenge.UpdateContact.UnitTest.Application.MessageHandlers;
 public class ContactDeletedMessageHandlerTests
 {
-
     private readonly Mock<IContactService> _contactServiceMock = new();
     private readonly ContactDeletedMessageHandler _messageHandler;
 
@@ -21,7 +20,7 @@ public class ContactDeletedMessageHandlerTests
         // Arrange
         var dto = new ContactDeletedEventDto
         {
-            //ContactId = Guid.NewGuid(),
+            ContactId = Guid.NewGuid(),
         };
 
         // Act

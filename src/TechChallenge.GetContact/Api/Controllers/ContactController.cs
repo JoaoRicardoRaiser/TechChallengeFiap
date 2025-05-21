@@ -9,10 +9,9 @@ namespace TechChallenge.GetContact.Controllers;
 public class ContactController(IContactService contactService) : Controller
 {
     [HttpGet]
-    public async Task<IActionResult> Get([FromQuery] int? phoneAreaNumber)
+    public async Task<IActionResult> GetAsync([FromQuery] int? phoneAreaNumber)
     {
         var contacts = await contactService.GetAsync(phoneAreaNumber);
         return Ok(contacts);
     }
-
 }

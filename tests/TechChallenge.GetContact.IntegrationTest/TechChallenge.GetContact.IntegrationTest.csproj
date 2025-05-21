@@ -28,4 +28,10 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Api\Controllers\ExpectedResponses\GetAsync_When_Filter_By_PhoneAreaCode_Filters_Should_Return_Filtered_Contacts.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

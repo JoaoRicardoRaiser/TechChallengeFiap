@@ -11,7 +11,7 @@ namespace TechChallenge.UpdateContact.Controllers;
 public class ContactController(IContactService contactService, IMapper mapper) : Controller
 {
     [HttpPut("{contactId}")]
-    public async Task<IActionResult> Put(Guid contactId, [FromBody] PutContactDto dto)
+    public async Task<IActionResult> PutAsync(Guid contactId, [FromBody] PutContactDto dto)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);

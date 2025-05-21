@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using FluentAssertions;
-using TechChallenge.GetContact.Application.Dtos;
+using TechChallenge.GetContact.Application.Dtos.Events;
 using TechChallenge.GetContact.Application.Profiles;
+using TechChallenge.GetContact.Application.UnitTest.Fixtures;
 using TechChallenge.GetContact.Domain.Entities;
 
 namespace TechChallenge.Application.UnitTest.Profiles;
@@ -17,29 +18,63 @@ public class ContactProfileTests
     }
 
     [Fact]
-    public void CreateContactDto_To_Contact_Should_Map_Correctly()
+    public void ContactUpdatedEventDto_To_Contact_Should_Map_Correctly()
     {
         // Arrange
-        //var createContactDto = new CreateContactDto
-        //{
-        //    Name = "John Doe",
-        //    Email = "johndoe@email.com",
-        //    Phone = new PhoneDto { Number = "47123456789" }
-        //};
+        var dto = new ContactUpdatedEventDto
+        {
+            ContactId = Guid.NewGuid(),
+            Email = "test@mail.com",
+            Name = "Test",
+            Phone = "47965232104",
+            PhoneAreaCode = 47
+        };
 
-        //var expectedContact = new Contact
-        //{
-        //    Name = createContactDto.Name,
-        //    Email = createContactDto.Email,
-        //    Phone = createContactDto.Phone.Number,
-        //    PhoneAreaCode = createContactDto.Phone.AreaCode
-        //};
+        var contact = ContactFake.New("John");
 
-        //// Act
-        //var contact = _mapper.Map<Contact>(createContactDto);
+        var expectedContact = new Contact
+        {
+            Id = contact.Id,
+            Name = dto.Name,
+            Email = dto.Email,
+            Phone = dto.Phone,
+            PhoneAreaCode = dto.PhoneAreaCode,
+            PhoneArea = contact.PhoneArea
+        };
 
-        //// Assert
-        //contact.Should().NotBeNull();
-        //contact.Should().BeEquivalentTo(expectedContact);
+        // Act
+        _mapper.Map(dto, contact);
+
+        // Assert
+        contact.Should().BeEquivalentTo(expectedContact);
+    }
+
+    [Fact]
+    public void ContactCreatedEventDto_To_Contact_Should_Map_Correctly()
+    {
+        // Arrange
+        var dto = new ContactCreatedEventDto
+        {
+            Id = Guid.NewGuid(),
+            Email = "test@mail.com",
+            Name = "Test",
+            Phone = "47965232104",
+            PhoneAreaCode = 47
+        };
+
+        var expectedContact = new Contact
+        {
+            Id = dto.Id,
+            Name = dto.Name,
+            Email = dto.Email,
+            Phone = dto.Phone,
+            PhoneAreaCode = dto.PhoneAreaCode
+        };
+
+        // Act
+        var result = _mapper.Map<Contact>(dto);
+
+        // Assert
+        result.Should().BeEquivalentTo(expectedContact);
     }
 }

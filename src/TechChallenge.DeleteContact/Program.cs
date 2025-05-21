@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Prometheus;
 using Raisersoft.EasyRabbit.Interfaces;
 using TechChallenge.DeleteContact.Api.Extensions;
+using TechChallenge.DeleteContact.Api.Middlewares;
 using TechChallenge.DeleteContact.Application.Extensions;
 using TechChallenge.DeleteContact.Infrastructure.Extensions;
 
@@ -44,6 +45,8 @@ app.MapMetrics();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseExceptionHandlingMiddleware();
 
 app.MapControllers();
 

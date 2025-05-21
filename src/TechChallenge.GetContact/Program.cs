@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Prometheus;
 using Raisersoft.EasyRabbit.Interfaces;
 using TechChallenge.GetContact.Api.Extensions;
+using TechChallenge.GetContact.Api.Middlewares;
 using TechChallenge.GetContact.Application.Extensions;
 using TechChallenge.GetContact.Infrastructure.Extensions;
 
@@ -45,6 +46,8 @@ app.MapMetrics();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseExceptionHandlingMiddleware();
 
 app.MapControllers();
 

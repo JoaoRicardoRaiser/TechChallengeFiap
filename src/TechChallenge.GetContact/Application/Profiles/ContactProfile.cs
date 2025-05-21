@@ -16,7 +16,5 @@ public class ContactProfile : Profile
         => CreateMap<ContactUpdatedEventDto, Contact>();
 
     private void CreateContactEventMapping()
-    {
-        CreateMap<ContactCreatedEventDto, Contact>();            
-    }
+        => CreateMap<ContactCreatedEventDto, Contact>();
 }

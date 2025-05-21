@@ -2,7 +2,9 @@ using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Prometheus;
 using Raisersoft.EasyRabbit.Interfaces;
+using System.Linq.Expressions;
 using TechChallenge.UpdateContact.Api.Extensions;
+using TechChallenge.UpdateContact.Api.Middlewares;
 using TechChallenge.UpdateContact.Application.Extensions;
 using TechChallenge.UpdateContact.Infrastructure.Extensions;
 
@@ -45,6 +47,8 @@ app.MapMetrics();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseExceptionHandlingMiddleware();
 
 app.MapControllers();
 
