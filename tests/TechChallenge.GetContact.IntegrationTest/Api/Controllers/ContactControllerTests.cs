@@ -13,7 +13,7 @@ public class ContactControllerTests(WebApplicationFixture webAppFixture)
     public async Task GetAsync_When_Filter_By_PhoneAreaCode_Filters_Should_Return_Filtered_Contacts()
     {
         // Arrange
-        var phoneAreaCode = 11;
+        var phoneAreaCode = 99;
 
         // Act
         var result = await _httpClient.GetAsync($"contacts?phoneAreaNumber={phoneAreaCode}");

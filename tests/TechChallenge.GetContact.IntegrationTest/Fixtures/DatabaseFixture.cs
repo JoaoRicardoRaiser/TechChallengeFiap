@@ -96,6 +96,14 @@ public class DatabaseFixture: IDisposable
                 Email = "billyjoe@mail.com",
                 Phone = "11987654321",
                 PhoneAreaCode = 11
+            },
+            new Contact
+            {
+                Id = Guid.Parse("86ccd5bc-87c3-4871-bdc8-408368d16129"),
+                Name = "Joao",
+                Email = "joao@mail.com",
+                Phone = "99986325124",
+                PhoneAreaCode = 99
             }
         ];
 
