@@ -11,8 +11,8 @@ public class RabbitMqFixture
             .WithImage("rabbitmq:3-management")
             .WithUsername("guest")
             .WithPassword("guest")
-            .WithPortBinding(15672, 15672)
-            .WithPortBinding(5672, 5672)
+            .WithPortBinding(12324, 15672)
+            .WithPortBinding(2324, 5672)
             .Build();
 
     public readonly RabbitMqService RabbitMqService;

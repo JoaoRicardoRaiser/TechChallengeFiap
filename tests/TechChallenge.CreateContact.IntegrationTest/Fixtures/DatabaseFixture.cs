@@ -13,7 +13,7 @@ public class DatabaseFixture : IDisposable
             .WithDatabase("tc-create-contact-test")
             .WithUsername("postgres")
             .WithPassword("postgres")
-            .WithPortBinding(5432, 5432)
+            .WithPortBinding(3332, 5432)
             .Build();
 
     public DatabaseFixture()
