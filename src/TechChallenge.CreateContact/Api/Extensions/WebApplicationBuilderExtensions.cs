@@ -10,9 +10,9 @@ public static class WebApplicationBuilderExtensions
     {
         builder.Configuration
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddEnvironmentVariables()
             .AddJsonFile(GetAppsettingsFileName())
-            .AddUserSecrets(Assembly.GetExecutingAssembly());
+            .AddUserSecrets(Assembly.GetExecutingAssembly())
+            .AddEnvironmentVariables();
 
         return builder;
     }
