@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: techchallenge-update
+  labels:
+    app: techchallenge-update
+spec:
+  containers:
+    - name: techchallenge-update
+      image: joaoraiser12/techchallenge-update:2.0
+      ports:
+        - containerPort: 8080
+      resources:
+        requests:
+          memory: "256Mi"
+          cpu: "250m"
+        limits:
+          memory: "512Mi"
+          cpu: "500m"
+      envFrom:
+        - secretRef:
+            name: techchallenge-update-secrets

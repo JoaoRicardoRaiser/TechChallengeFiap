@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: techchallenge-delete
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: techchallenge-delete
+  template:
+    metadata:
+      labels:
+        app: techchallenge-delete
+    spec:
+      containers:
+        - name: techchallenge-delete
+          image: joaoraiser12/techchallenge-delete:2.0
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          envFrom:
+            - secretRef:
+                name: techchallenge-delete-secrets

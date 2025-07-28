@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rabbitmq-pod
+  labels:
+    app: rabbitmq
+spec:
+  containers:
+    - name: rabbitmq
+      image: rabbitmq:3-management 
+      ports:
+        - containerPort: 5672
+        - containerPort: 15672
+      volumeMounts:
+        - name: rabbitmq-storage
+          mountPath: /var/lib/rabbitmq
+      resources:
+        requests:
+          memory: "256Mi"
+          cpu: "250m"
+        limits:
+          memory: "512Mi"
+          cpu: "500m"
+  volumes:
+    - name: rabbitmq-storage
+      rabbitmq-pod:
+        claimName: rabbitmq-pvc
